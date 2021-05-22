@@ -26,13 +26,10 @@ target/
 *.ipr
 
 ### NetBeans ###
-nbproject/private/
-build/*
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
+logs
+target
+node_modules
+package-lock.json
 ######################################################################
 # Others
 *.log
