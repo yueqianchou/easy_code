@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.CRUDDao">
+
+    <!--分页查询  订单信息   collection  之select   开始    -->
+    <resultMap id="getOrderResultMap" type="com.example.demo.entity.Order">
+        <id property="order_id" column="order_id"></id>
+        <result property="order_name" column="order_name"></result>
+        <result property="pay_mode" column="pay_mode"></result>
+        <result property="order_time" column="order_time"></result>
+        <result property="order_status" column="order_status"></result>
+        <result property="remarks" column="remarks"></result>
+        <result property="del_flag" column="del_flag"></result>
+        <collection property="orderDetails" column="{param_id=order_id}" ofType="OrderDetail" select="getOrderDetailByid"></collection>
+
+    </resultMap>
+
+    <select id="getOrderDetailByid"  parameterType="hashmap" resultType="OrderDetail">
+        select order_id, product_name,piece,image,money,unit_price,order_details_id
+        from `order_details` where  order_id= #{param_id}
+
+    </select>
+
+    <select id="listPageOrderByResultMap" parameterType="com.example.demo.entity.Order" resultMap="getOrderResultMap">
+         select order_id ,order_name,pay_mode,order_time,order_status,remarks,del_flag
+        from `order`
+        limit 0,3
+    </select>
+    <!--分页查询  订单信息   collection  之select   结束    -->
+
+    <!--分页查询  订单信息   collection  之一般形式  开始    -->
+
+    <resultMap id="getOrderResultMap2" type="com.example.demo.entity.Order">
+        <id property="order_id" column="order_id"></id>
+        <result property="order_name" column="order_name"></result>
+        <result property="pay_mode" column="pay_mode"></result>
+        <result property="order_time" column="order_time"></result>
+        <result property="order_status" column="order_status"></result>
+        <result property="remarks" column="remarks"></result>
+        <result property="del_flag" column="del_flag"></result>
+        <collection property="orderDetails" ofType="OrderDetail">
+            <id property="order_details_id" column="order_details_id"></id>
+            <result property="order_id" column="order_id"></result>
+            <result property="product_name" column="product_name"></result>
+            <result property="piece" column="piece"></result>
+            <result property="image" column="image"></result>
+            <result property="money" column="money"></result>
+            <result property="unit_price" column="unit_price"></result>
+        </collection>
+
+    </resultMap>
+
+    <select id="listPageOrderByResultMap2" parameterType="com.example.demo.entity.Order" resultMap="getOrderResultMap2">
+        SELECT
+            o.order_id,
+            o.order_name,
+            o.pay_mode,
+            o.order_time,
+            o.order_status,
+            o.remarks,
+            o.del_flag,
+            d.order_details_id,
+            d.image,
+            d.money,
+            d.piece,
+            d.product_name,
+            d.unit_price
+        FROM
+            `order` o
+        INNER JOIN order_details d ON o.order_id = d.order_id
+        LIMIT 0, 3
+    </select>
+    <!--分页查询  订单信息   collection  之一般形式  结束    -->
+
+
+
+
+
+
+
+
+
+
+</mapper>

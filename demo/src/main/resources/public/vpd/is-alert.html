@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-alert 警告</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-alert 警告</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+
+        })
+
+    </script>
+</div>
+
+<p style="color:royalblue">
+    用于页面中展示重要的提示信息。
+
+</p>
+
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                    <span style="line-height: 36px;">
+                        基本用法
+                                页面中的非浮层元素，不会自动消失。
+
+                                ::: demo Alert 组件提供四种主题，由type属性指定，默认值为info。
+                    </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-alert title="成功提示的文案" type="success">
+                        </ls-alert>
+                        <ls-alert title="消息提示的文案" type="info">
+                        </ls-alert>
+                        <ls-alert title="警告提示的文案" type="warning">
+                        </ls-alert>
+                        <ls-alert title="错误提示的文案" type="error">
+                        </ls-alert>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span style="line-height: 36px;">
+                    自定义关闭按钮
+自定义关闭按钮为文字或其他符号。
+
+::: demo 在 Alert 组件中，你可以设置是否可关闭，关闭按钮的文本以及关闭时的回调函数。closable属性决定是否可关闭，接受boolean，默认为true。你可以设置close-text属性来代替右侧的关闭图标，注意：close-text必须为文本。设置close事件来设置关闭时的回调。
+                </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-alert title="不可关闭的 alert" type="success" :closable="false">
+                        </ls-alert>
+                        <ls-alert title="自定义 close-text" type="info" close-text="知道了">
+                        </ls-alert>
+                        <ls-alert title="设置了回调的 alert" type="warning" @close="hello">
+                        </ls-alert>
+                    </div>
+                </template>
+
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+                hello: function  () {
+                    alert('Hello World!');
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有 icon
+表示某种状态时提升可读性。
+
+::: demo 通过设置show-icon属性来显示 Alert 的 icon，这能更有效地向用户展示你的显示意图。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-alert title="成功提示的文案" type="success" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="消息提示的文案" type="info" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="警告提示的文案" type="warning" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="错误提示的文案" type="error" show-icon="">
+                        </ls-alert>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有辅助性文字介绍
+包含标题和内容，解释更详细的警告。
+
+::: demo 除了必填的title属性外，你可以设置description属性来帮助你更好地介绍，我们称之为辅助性文字。辅助性文字只能存放单行文本，会自动换行显示。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-alert title="带辅助性文字介绍" type="success" description="这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……">
+                    </ls-alert>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有 icon 和辅助性文字介绍
+::: demo 最后，这是一个同时具有 icon 和辅助性文字的样例。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-alert title="成功提示的文案" type="success" description="文字说明文字说明文字说明文字说明文字说明文字说明" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="消息提示的文案" type="info" description="文字说明文字说明文字说明文字说明文字说明文字说明" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="警告提示的文案" type="warning" description="文字说明文字说明文字说明文字说明文字说明文字说明" show-icon="">
+                        </ls-alert>
+                        <ls-alert title="错误提示的文案" type="error" description="文字说明文字说明文字说明文字说明文字说明文字说明" show-icon="">
+                        </ls-alert>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    title	标题，必选参数	string	—	—
+    type	主题	string	success/warning/info/error	info
+    description	辅助性文字。也可通过默认 slot 传入	string	—	—
+    closable	是否可关闭	boolean	—	true
+    close-text	关闭按钮自定义文本	string	—	—
+    show-icon	是否显示图标	boolean	—	false
+    事件
+    事件名称	说明	回调参数
+    close	关闭alert时触发的事件	—
+</div>
+</body>
+</html>
+

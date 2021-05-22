@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-message 消息提示</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-message 消息提示</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+常用于主动操作后的反馈提示。与 Notification 的区别是后者更多用于系统级通知的被动提醒。
+
+Vmd 注册了一个LsMessage方法用于调用，可以接收一个字符串作为参数，它会被显示为正文内容。
+在使用html开发中使用的是Vmd.Message("这是一条消息提示")。
+在main.js里完全引入，用this.$message('这是一条消息提示')。
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+从顶部出现，3 秒后自动消失
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button :plain="true" @click="open">打开消息提示</ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        //import {LsMessage} from 'ls-vmd'
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open: function () {
+                    //LsMessage('这是一条消息提示')
+                    this.$message('这是一条消息提示')
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+不同状态
+用来显示「成功、警告、消息、错误」类的操作反馈
+
+当需要自定义更多属性时，Message 也可以接收一个对象为参数。比如，设置type字段可以定义不同的状态，默认为info。此时正文内容以message的值传入。同时，我们也为 Message 的各种 type 注册了方法，可以在不传入type字段的情况下像open4那样直接调用。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-button :plain="true" @click="open2">成功</ls-button>
+                        <ls-button :plain="true" @click="open3">警告</ls-button>
+                        <ls-button :plain="true" @click="open1">消息</ls-button>
+                        <ls-button :plain="true" @click="open4">错误</ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open1: function  () {
+                    //LsMessage('这是一条消息提示')
+                    this.$message('这是一条消息提示')
+                },
+
+                open2: function  () {
+                    //LsMessage({
+                    //  message: '恭喜你，这是一条成功消息',
+                    //  type: 'success'
+                    //})
+                    this.$message({
+                        message: '恭喜你，这是一条成功消息',
+                        type: 'success'
+                    })
+                },
+
+                open3: function  () {
+                    //LsMessage({
+                    //  message: '警告哦，这是一条警告消息',
+                    //  type: 'warning'
+                    //})
+                    this.$message({
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    })
+                },
+
+                open4 : function () {
+                    //LsMessage.error('错了哦，这是一条错误消息')
+                    this.$message.error('错了哦，这是一条错误消息')
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可关闭
+可以添加关闭按钮。
+
+默认的 Message 是不可以被人工关闭的，如果需要可手动关闭的 Message，可以使用showClose字段。此外，和 Notification 一样，Message 拥有可控的duration，设置0为不会被自动关闭，默认为 3000 毫秒。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-button :plain="true" @click="open5">消息</ls-button>
+                        <ls-button :plain="true" @click="open6">成功</ls-button>
+                        <ls-button :plain="true" @click="open7">警告</ls-button>
+                        <ls-button :plain="true" @click="open8">错误</ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open5 : function () {
+                    //LsMessage({
+                    //  showClose: true,
+                    //  message: '恭喜你，这是一条成功消息',
+                    //  duration: 0
+                    //})
+                    this.$message({
+                        showClose: true,
+                        message: '恭喜你，这是一条成功消息',
+                        duration: 0
+                    })
+                },
+
+                open6: function  () {
+                    //LsMessage({
+                    //  showClose: true,
+                    //  message: '警告哦，这是一条警告消息',
+                    //  type: 'warning'
+                    //})
+                    this.$message({
+                        showClose: true,
+                        message: '警告哦，这是一条警告消息',
+                        type: 'warning'
+                    })
+                },
+
+                open7 : function () {
+                    //LsMessage({
+                    //  showClose: true,
+                    //  message: '错了哦，这是一条错误消息',
+                    //  type: 'error'
+                    //})
+                    this.$message({
+                        showClose: true,
+                        message: '错了哦，这是一条错误消息',
+                        type: 'error'
+                    })
+                },
+
+                open8 : function () {
+                    //LsMessage({
+                    //  showClose: true,
+                    //  message: '错了哦，这是一条错误消息',
+                    //  type: 'error',
+                    //  duration: 0
+                    //})
+                    this.$message({
+                        showClose: true,
+                        message: '错了哦，这是一条错误消息',
+                        type: 'error',
+                        duration: 0
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+                             上下左右弹出demo，需要引入vmd.min.css
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <h4>上下左右弹出demo</h4>
+                        <ls-button :plain="true" @click="top">上边弹出</ls-button>
+                        <ls-button :plain="true" @click="bottom">下边弹出</ls-button>
+                        <ls-button :plain="true" @click="left">左边弹出</ls-button>
+                        <ls-button :plain="true" @click="right">右边弹出</ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <style>
+        .right{
+            left: 99%;
+            top: 50%;
+            transform: translateX(-100%);
+        }
+        .left{
+            left: 20px;
+            top: 50%;
+            transform: translateY(5%);
+            transition: opacity 3s,transform 1s;
+        }
+        .bottom{
+            left: 50%;
+            top: 99%;
+            transform:translate(-50%,-100%)
+        }
+        .top{
+
+        }
+    </style>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                top : function () {
+                    this.$message({
+                        showClose: true,
+                        message: '我是从上边弹出的 ',
+                        duration: 0,
+                        customClass: 'top'
+                    })
+                },
+
+                bottom: function  () {
+                    this.$message({
+                        showClose: true,
+                        message: '我是从下边弹出的 ',
+                        duration: 0,
+                        customClass: 'bottom'
+                    })
+                },
+
+                left : function () {
+                    this.$message({
+                        showClose: true,
+                        message: '我是从左边弹出的 ',
+                        duration: 0,
+                        customClass: 'left'
+                    })
+                },
+
+                right : function () {
+                    this.$message({
+                        showClose: true,
+                        message: '我是从右边弹出的 ',
+                        duration: 0,
+                        customClass: 'right'
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Options
+    参数	说明	类型	可选值	默认值
+    message	消息文字	string	—	—
+    type	主题	string	success/warning/info/error	info
+    iconClass	自定义图标的类名，会覆盖 type	string	—	—
+    customClass	自定义类名	string	—	—
+    duration	显示时间, 毫秒。设为 0 则不会自动关闭	number	—	3000
+    showClose	是否显示关闭按钮	boolean	—	false
+    onClose	关闭时的回调函数, 参数为被关闭的 message 实例	function	—	—
+    Message 方法
+    方法名	说明
+    close	关闭当前的 Message
+</div>
+
+</body>
+</html>
+

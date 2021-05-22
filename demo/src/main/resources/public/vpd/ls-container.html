@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-container 布局的容器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-container 布局的容器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+
+用于布局的容器组件，方便快速搭建页面的基本结构
+<!--<xmp>html标签内容</xmp>-->
+<xmp>
+    <ls-container>：外层容器。当子元素中包含 <ls-header> 或 <ls-footer> 时，全部子元素会垂直上下排列，否则会水平左右排列。
+
+        <ls-header>：顶栏容器。
+
+            <ls-aside>：侧边栏容器。
+
+                <ls-main>：主要区域容器。
+
+                    <ls-footer>：底栏容器。
+</xmp>
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+常见页面布局
+:::使用 v-model与 Vue 实例中的一个变量进行双向绑定，绑定的变量需要是字符串类型。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div v-cloak="">
+                        <ls-container direction="vertical">
+                            <ls-header style="background: #0addfe">Header</ls-header>
+                            <ls-main style="background: yellow">Main</ls-main>
+                        </ls-container>
+                        <p></p><p></p>
+                        <ls-container>
+                            <ls-header style="background: #0addfe">Header</ls-header>
+                            <ls-main style="background: yellow">Main</ls-main>
+                            <ls-footer  style="background: rosybrown">Footer</ls-footer>
+                        </ls-container>
+                        <p></p><p></p>
+                        <ls-container>
+                            <ls-aside style="background: red" width="200px">Aside</ls-aside>
+                            <ls-main style="background: yellow">Main</ls-main>
+                        </ls-container>
+                        <p></p><p></p>
+                        <ls-container>
+                            <ls-header style="background: #0addfe">Header</ls-header>
+                            <ls-container>
+                                <ls-aside style="background: red" width="200px">Aside</ls-aside>
+                                <ls-main style="background: yellow">Main</ls-main>
+                            </ls-container>
+                        </ls-container>
+                        <p></p><p></p>
+                        <ls-container>
+                            <ls-header style="background: #0addfe">Header</ls-header>
+                            <ls-container>
+                                <ls-aside style="background: red" width="200px">Aside</ls-aside>
+                                <ls-container>
+                                    <ls-main style="background: yellow">Main</ls-main>
+                                    <ls-footer style="background: rosybrown">Footer</ls-footer>
+                                </ls-container>
+                            </ls-container>
+                        </ls-container>
+
+                        <p></p><p></p>
+
+                        <ls-container>
+                            <ls-aside style="background: red" width="200px">Aside</ls-aside>
+                            <ls-container>
+                                <ls-header style="background: #0addfe">Header</ls-header>
+                                <ls-main style="background: yellow">Main</ls-main>
+                            </ls-container>
+                        </ls-container>
+
+                        <p></p><p></p>
+
+                        <ls-container>
+                            <ls-aside style="background: red" width="200px">Aside</ls-aside>
+                            <ls-container>
+                                <ls-header style="background: #0addfe">Header</ls-header>
+                                <ls-main style="background: yellow">Main</ls-main>
+                                <ls-footer style="background: rosybrown">Footer</ls-footer>
+                            </ls-container>
+                        </ls-container>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    Container 属性
+    参数	说明	类型	可选值	默认值
+    direction	子元素的排列方向	string	horizontal / vertical	子元素中有 ls-header 或 ls-footer 时为 vertical，否则为 horizontal
+    Head 属性
+    参数	说明	类型	可选值	默认值
+    height	顶栏高度	string	—	60px
+    Aside 属性
+    参数	说明	类型	可选值	默认值
+    width	侧边栏宽度	string	—	300px
+    Footer 属性
+    参数	说明	类型	可选值	默认值
+    height	底栏高度	string	—	60px
+</div>
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-layout 布局</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<style type="text/css">
+    .bg-dark{
+        background: darkslategray;
+    }
+    .bg-light{
+        background:darkgray;
+    }
+</style>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-layout 布局</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+:::通过 row 和 col 组件，并通过 col 组件的 span 属性我们就可以自由地组合布局。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-dark">.col-md-2</div></ls-col>
+                            <ls-col :span="2"><div class="bg-light">.col-md-2</div></ls-col>
+                        </ls-row>
+                        <ls-row>
+                            <ls-col :span="16"><div class="bg-dark">.col-md-16</div></ls-col>
+                            <ls-col :span="8"><div class="bg-light">.col-md-8</div></ls-col>
+                        </ls-row>
+                        <ls-row>
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                            <ls-col :span="8"><div class="bg-light">.col-md-8</div></ls-col>
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                        </ls-row>
+                        <ls-row>
+                            <ls-col :span="12"><div class="bg-dark">.col-md-12</div></ls-col>
+                            <ls-col :span="12"><div class="bg-light">.col-md-12</div></ls-col>
+                        </ls-row>
+                        <ls-row>
+                            <ls-col :span="24"><div class="bg-dark">.col-md-24</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+分栏间隔
+:::Row 组件 提供 gutter 属性来指定每一栏之间的间隔，默认间隔为 0。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row :gutter="10">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+混合布局
+通过基础的 1/24 分栏任意扩展组合形成较为复杂的混合布局
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row :gutter="10">
+                            <ls-col :span="16"><div class="bg-dark">.col-md-16</div></ls-col>
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                        </ls-row>
+                        <ls-row :gutter="10">
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                            <ls-col :span="8"><div class="bg-dark">.col-md-8</div></ls-col>
+                        </ls-row>
+                        <ls-row :gutter="10">
+                            <ls-col :span="4"><div class="bg-dark">.col-md-4</div></ls-col>
+                            <ls-col :span="16"><div class="bg-dark">.col-md-16</div></ls-col>
+                            <ls-col :span="4"><div class="bg-dark">.col-md-4</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+分栏偏移
+:::通过制定 col 组件的 offset 属性可以指定分栏偏移的栏数。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row :gutter="10">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6" :offset="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row :gutter="10">
+                            <ls-col :span="6" :offset="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6" :offset="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row :gutter="10">
+                            <ls-col :span="12" :offset="6"><div class="bg-dark">.col-md-12</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+对齐方式
+通过 flex 布局来对分栏进行灵活的对齐
+
+:::将 type 属性赋值为 'flex'，可以启用 flex 布局，并可通过 justify 属性来指定 start, center, end, space-between, space-around 其中的值来定义子元素的排版方式。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row type="flex">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-light">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row type="flex" justify="center">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-light">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row type="flex" justify="end">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-light">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row type="flex" justify="space-between">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-light">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                        <ls-row type="flex" justify="space-around">
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-light">.col-md-6</div></ls-col>
+                            <ls-col :span="6"><div class="bg-dark">.col-md-6</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app6" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+响应式布局
+参照了 Bootstrap 的 响应式设计，预设了四个响应尺寸：xs、sm、md和lg
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-row :gutter="10">
+                            <ls-col :xs="8" :sm="6" :md="4" :lg="3"><div class="bg-dark">.col-md-3</div></ls-col>
+                            <ls-col :xs="4" :sm="6" :md="8" :lg="9"><div class="bg-light">.col-md-9</div></ls-col>
+                            <ls-col :xs="4" :sm="6" :md="8" :lg="9"><div class="bg-dark">.col-md-9</div></ls-col>
+                            <ls-col :xs="8" :sm="6" :md="4" :lg="3"><div class="bg-light">.col-md-3</div></ls-col>
+                        </ls-row>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app6',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+
+<div>
+    Row 属性
+    参数	说明	类型	可选值	默认值
+    gutter	栅格间隔	number	—	0
+    type	布局模式，可选flex，浏览器下有效	string	—	—
+    justify	flex布局下的水平排列方式	string	start/end/center/space-around/space-between	start
+    align	flex 布局下的垂直排列方式	string	top/middle/bottom	top
+    tag	自定义元素标签	string	*	div
+    Col 属性
+    参数	说明	类型	可选值	默认值
+    span	栅格占据的列数	number	—	—
+    offset	栅格左侧的间隔格数	number	—	0
+    push	栅格向右移动格数	number	—	0
+    pull	栅格向左移动格数	number	—	0
+    xs	<768px 响应式栅格数或者栅格属性对象	number/object (例如： {span: 4, offset: 4})	*	—
+    sm	≥768px 响应式栅格数或者栅格属性对象	number/object (例如： {span: 4, offset: 4})	—	—
+    md	≥992 响应式栅格数或者栅格属性对象	number/object (例如： {span: 4, offset: 4})	—	—
+    lg	≥1200 响应式栅格数或者栅格属性对象	number/object (例如： {span: 4, offset: 4})	—	—
+    tag	自定义元素标签	string	—	div
+</div>
+
+
+
+
+</body>
+</html>
+

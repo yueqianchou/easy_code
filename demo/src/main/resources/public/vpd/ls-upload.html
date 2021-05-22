@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-upload 上传</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-upload 上传</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+通过点击或者拖拽上传文件
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+点击上传
+通过 slot 你可以传入自定义的上传按钮类型和文字提示
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList">
+                            <ls-button size="small" type="primary">点击上传</ls-button>
+
+                            <div slot="tip" class="ls-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleRemove : function (file, fileList) {
+                    console.log(file, fileList);
+                },
+                handlePreview: function (file) {
+                    console.log(file);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+用户头像上传
+使用 before-upload 限制用户上传的图片格式和大小。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                            <i v-else="" class="ls-icon-plus avatar-uploader-icon"></i>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <style>
+        .avatar-uploader .ls-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .avatar-uploader .ls-upload:hover {
+            border-color: #20a0ff;
+        }
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 178px;
+            height: 178px;
+            line-height: 178px;
+            text-align: center;
+        }
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+    </style>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    imageUrl: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleAvatarSuccess: function (res, file) {
+                    this.imageUrl = URL.createObjectURL(file.raw);
+                },
+                beforeAvatarUpload: function (file) {
+                    const isJPG = file.type === 'image/jpeg';
+                    const isLt2M = file.size / 1024 / 1024 < 2;
+
+                    if (!isJPG) {
+                        this.$message.error('上传头像图片只能是 JPG 格式!');
+                    }
+                    if (!isLt2M) {
+                        this.$message.error('上传头像图片大小不能超过 2MB!');
+                    }
+                    return isJPG && isLt2M;
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+照片墙
+使用 list-type 属性来设置文件列表的样式。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+                            <i class="ls-icon-plus"></i>
+                        </ls-upload>
+                        <ls-dialog v-model="dialogVisible" size="tiny">
+                            <img width="100%" :src="dialogImageUrl" alt="">
+                        </ls-dialog>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    dialogImageUrl: '',
+                    dialogVisible: false
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleRemove: function (file, fileList) {
+                    console.log(file, fileList);
+                },
+                handlePictureCardPreview: function (file) {
+                    this.dialogImageUrl = file.url;
+                    this.dialogVisible = true;
+                }
+            }
+        })
+    </script>
+</div>
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+图片列表缩略图
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList2" list-type="picture">
+                            <ls-button size="small" type="primary">点击上传</ls-button>
+                            <div slot="tip" class="ls-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleRemove: function (file, fileList) {
+                    console.log(file, fileList);
+                },
+                handlePreview: function (file) {
+                    console.log(file);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+上传文件列表控制
+通过 on-change 钩子函数来对列表进行控制。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-change="handleChange" :file-list="fileList3">
+                            <ls-button size="small" type="primary">点击上传</ls-button>
+                            <div slot="tip" class="ls-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+                    fileList3: [{
+                        name: 'food.jpeg',
+                        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+                        status: 'finished'
+                    }, {
+                        name: 'food2.jpeg',
+                        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+                        status: 'finished'
+                    }]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleChange: function(file, fileList) {
+                    this.fileList3 = fileList.slice(-3);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app6" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+拖拽上传
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="upload-demo" drag="" action="https://jsonplaceholder.typicode.com/posts/" multiple="">
+                            <i class="ls-icon-upload"></i>
+                            <div class="ls-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                            <div class="ls-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app6',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app7" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+手动上传
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-upload class="upload-demo" ref="upload" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
+                            <ls-button slot="trigger" size="small" type="primary">选取文件</ls-button>
+                            <ls-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</ls-button>
+                            <div slot="tip" class="ls-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </ls-upload>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app7',
+            data: function () {
+                return {
+                    fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                submitUpload: function () {
+                    this.$refs.upload.submit();
+                },
+                handleRemove: function (file, fileList) {
+                    console.log(file, fileList);
+                },
+                handlePreview: function (file) {
+                    console.log(file);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    action	必选参数,上传的地址	string	—	—
+    headers	可选参数,设置上传的请求头部	object	—	false
+    multiple	可选参数,是否支持多选文件	boolean	—	—
+    data	可选参数,上传时附带的额外参数	object	—	—
+    name	可选参数,上传的文件字段名	string	—	file
+    with-credentials	支持发送cookie凭证信息	boolean	—	false
+    show-file-list	是否显示已上传文件列表	boolean	—	true
+    drag	是否启用拖拽上传	boolean	—	false
+    accept	可选参数,接受上传的文件类型(thumbnail-mode模式下此参数无效)	string	—	—
+    on-preview	可选参数, 点击已上传的文件链接时的钩子, 可以通过 file.response 拿到服务端返回数据	function(file)	—	—
+    on-remove	可选参数, 文件列表移除文件时的钩子	function(file, fileList)	—	—
+    on-success	可选参数, 文件上传成功时的钩子	function(response, file, fileList)	—	—
+    on-error	可选参数, 文件上传失败时的钩子	function(err, file, fileList)	—	—
+    on-progress	可选参数, 文件上传时的钩子	function(event, file, fileList)	—	—
+    on-change	可选参数, 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用	function(file, fileList)	—	—
+    before-upload	可选参数, 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。	function(file)	—	—
+    before-remove	删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止上传。	function(file, fileList)	—	—
+    list-type	文件列表的类型	string	text/picture/picture-card	text
+    auto-upload	是否在选取文件后立即进行上传	boolean	—	true
+    file-list	上传的文件列表, 例如: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}] array	string	—	[]
+    http-request	覆盖默认的上传行为，可以自定义上传的实现	function	—	—
+    disabled	是否禁用	boolean	—	—
+    方法
+    方法名	说明	参数
+    clearFiles	清空已上传的文件列表（该方法不支持在 before-upload 中调用）	—
+    abort	取消上传请求	（ file: fileList 中的 file 对象 ）
+</div>
+
+
+
+</body>
+</html>
+

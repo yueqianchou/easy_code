@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lvm Demo</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <ls-container direction="vertical" style="width:90%;margin:0 auto">
+        <ls-header>
+            <h3 align="center">订单页面</h3>
+        </ls-header>
+        <ls-main>
+            <template>
+                <ls-form inline="" :model="order" class="demo-form-inline">
+                    <ls-form-item label="订单名称：">
+                        <ls-input v-model="order.order_name" placeholder=""></ls-input>
+                    </ls-form-item>
+
+                    <ls-form-item label="付款方式：">
+                        <ls-radio class="radio" v-model="order.pay_mode" label="">全部</ls-radio>
+                        <ls-radio class="radio" v-model="order.pay_mode" label="0">线下</ls-radio>
+                        <ls-radio class="radio" v-model="order.pay_mode" label="1">线上</ls-radio>
+                    </ls-form-item>
+
+                    <ls-form-item label="订单状态：">
+                        <ls-select v-model="order.order_status" placeholder="全部">
+                            <ls-option label="全部" value=""></ls-option>
+                            <ls-option label="已下单" value="0"></ls-option>
+                            <ls-option label="已发货" value="1"></ls-option>
+                            <ls-option label="已签收" value="2"></ls-option>
+                            <ls-option label="已完成" value="3"></ls-option>
+                        </ls-select>
+                    </ls-form-item>
+
+                    <ls-form-item>
+                        <ls-button type="primary" icon="search" @click="searchOrderlist()">搜索</ls-button>
+                    </ls-form-item>
+
+                    <ls-form-item style="float:right">
+                        <ls-button type="primary" @click="addOrder()">新增订单</ls-button>
+                    </ls-form-item>
+                </ls-form>
+            </template>
+
+            <!--订单列表-->
+            <template>
+                <ls-table :data="orders" style="width: 100%" border="" >
+                    <ls-table-column prop="order_id" label="订单ID">
+                    </ls-table-column>
+                    <ls-table-column prop="order_name" label="订单名称" width="180">
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="付款方式">
+                        <template scope="scope">
+                            <span v-if="scope.row.pay_mode== 0 ">线下</span>
+                            <span v-if="scope.row.pay_mode== 1 ">线上</span>
+                        </template>
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="订单状态">
+                        <template scope="scope">
+                            <span v-if="scope.row.order_status== 0 ">已下单</span>
+                            <span v-if="scope.row.order_status== 1 ">已发货</span>
+                            <span v-if="scope.row.order_status== 2 ">已签收</span>
+                            <span v-if="scope.row.order_status== 3 ">已完成</span>
+                        </template>
+                    </ls-table-column>
+                    <ls-table-column prop="order_time" label="下单时间" width="200">
+                    </ls-table-column>
+                    <ls-table-column prop="remarks" label="备注">
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="删除标记">
+                        <template scope="scope">
+                            <span v-if="scope.row.del_flag== 0 ">未删除</span>
+                            <span v-if="scope.row.del_flag== 1 ">已删除</span>
+                        </template>
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="操作" width="200">
+                        <template scope="scope">
+                            <ls-button @click="gotoOrderDetailPage(scope.row.order_id)">查看</ls-button>
+                            <ls-button @click="updateOrder(scope.row)">删除</ls-button>
+                        </template>
+                    </ls-table-column>
+                </ls-table>
+            </template>
+
+        </ls-main>
+        <ls-footer>
+            <template>
+                <div class="block" style="float:right">
+                    <ls-pagination layout="prev, pager, next" :total="totalCount"
+                                   :current-page="currentPage" :page-size="pageSize"
+                                   @current-change="handleCurrentChange">
+                    </ls-pagination>
+                </div>
+            </template>
+        </ls-footer>
+    </ls-container>
+
+
+</div>
+
+
+<script>
+    Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+                    orders: [],
+                    totalCount: 1,
+                    currentPage: 1,
+                    pageSize: 8,
+                    order: {
+                        order_name: '',
+                        pay_mode: '',
+                        order_status: '',
+                    }
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                _this.getOrderlist();
+
+            },
+            methods: {
+
+                handleCurrentChange: function (val) {
+                    var _this = this;
+                    _this.currentPage = val;
+                    _this.getOrderlist();
+                },
+
+                searchOrderlist: function () {
+                    var _this = this;
+                    _this.currentPage = 1;
+                    _this.getOrderlist();
+                },
+
+                //查询订单列表
+                getOrderlist: function () {
+                    var _this = this;
+                    var end = _this.pageSize ;
+                    var start = (this.currentPage - 1) * _this.pageSize;
+                    _this.order.end = end;
+                    _this.order.start = start;
+                    Lvm.$http.post('/getOrderlist', _this.order).then(function (result) {
+                        _this.orders = result.data.orders;
+                        _this.totalCount = result.data.count;
+                    })
+                },
+
+                //修改订单是否删除的状态
+                updateOrder: function (rowData) {
+                    this.$confirm('此操作将删除订单, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(function () {
+                        Lvm.$http.get('/updateOrder/' + rowData.order_id).then(function (result) {
+                            rowData.del_flag = 1;
+                        })
+                    }).catch(function () {
+                        console.log('已取消删除')
+                    });
+                },
+
+                //跳转到订单详情页
+                gotoOrderDetailPage: function (order_id) {
+                    //获取项目路径
+                    Lvm.$http.get('getProjectRootUrl').then(function (result) {
+                        window.location.href = result.data+"/orderdetail.html?order_id=" + order_id;
+                    })
+                },
+
+                //新增到订单
+                addOrder: function () {
+                    //获取项目路径
+                    Lvm.$http.get('getProjectRootUrl').then(function (result) {
+                        window.location.href = result.data+"/adddetail.html" ;
+                    })
+                },
+
+
+
+
+            }
+        }
+    )
+</script>
+
+</body>
+</html>

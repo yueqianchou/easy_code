@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-select 选择器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-select 选择器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+当选项过多时，使用下拉菜单展示并选择内容
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+适用广泛的基础单选
+
+:::v-model的值为当前被选中的ls-option的 value 属性值
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value" placeholder="请选择">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+select-tree用法
+同样支持单选和多选
+
+:::v-model的值为当前被选中的ls-tree的节点 value 属性值
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="valueTree" placeholder="请选择">
+                        <ls-option :hidden="true"></ls-option>
+                        <ls-tree id="aa" :data="data" :props="defaultProps" :indent="10" node-key="id" :default-check-keys="[1]" :current-node-key="1" :is-select-tree="true"></ls-tree>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    data: [{
+                        label: '0级 1',
+                        id: 1,
+                        value:'1'
+                    }, {
+                        label: '一级 1',
+                        value:'2',
+                        children: [{
+                            label: '二级 1-1',
+                            value:'3',
+                            children: [{
+                                label: '三级 1-1-1',
+                                value:'4'
+                            }]
+                        }]
+                    }, {
+                        label: '一级 2',
+                        value:'5',
+                        children: [{
+                            label: '二级 2-1',
+                            value:'6',
+                            children: [{
+                                label: '三级 2-1-1',
+                                value:'7'
+                            }]
+                        }, {
+                            label: '二级 2-2',
+                            value:'8',
+                            children: [{
+                                value:'9',
+                                label: '三级 2-2-1'
+                            }]
+                        }]
+                    }, {
+                        label: '一级 3',
+                        value:'10',
+                        children: [{
+                            label: '二级 3-1',
+                            value:'11',
+                            children: [{
+                                label: '三级 3-1-1',
+                                value:'12'
+                            }]
+                        }, {
+                            label: '二级 3-2',
+                            value:'13',
+                            children: [{
+                                label: '三级 3-2-1',
+                                value:'14'
+                            }]
+                        }]
+                    }],
+                    defaultProps: {
+                        children: 'children',
+                        label: 'label'
+                    },
+                    valueTree: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+有禁用选项
+:::在ls-option中，设定disabled值为 true，即可禁用该选项
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value2" placeholder="请选择">
+                        <ls-option v-for="item in options2" :label="item.label" :value="item.value" :disabled="item.disabled">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    options2: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶',
+                        disabled: true
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value2: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+禁用状态
+选择器不可用状态
+
+:::为ls-select设置disabled属性，则整个选择器不可用
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value3" disabled="" placeholder="请选择">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value3: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可清空单选
+包含清空按钮，可将选择器清空为初始状态
+
+:::为ls-select设置clearable属性，则可将选择器清空。需要注意的是，clearable属性仅适用于单选。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value4" clearable="" placeholder="请选择">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value4: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app6" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础多选
+适用性较广的基础多选，用 Tag 展示已选项
+
+:::为ls-select设置multiple属性即可启用多选，此时v-model的值为当前选中值所组成的数组
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value5" multiple="" placeholder="请选择">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app6',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value5: []
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app7" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可收缩的多选
+默认情况下选中值会以 Tag 的形式展现，你也可以设置collapse-tags属性将它们合并为一段文字。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value5" multiple="" placeholder="请选择" collapse-tags="">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app7',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value5: []
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app8" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义模板
+可以自定义备选项
+
+:::将自定义的 HTML 模板插入ls-option的 slot 中即可。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value6" placeholder="请选择">
+                        <ls-option v-for="item in cities" :label="item.label" :value="item.value">
+                            <span style="float: left">{{ item.label }}</span>
+                            <span style="float: right color: #8492a6 ;font-size: 13px">{{ item.value }}</span>
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app8',
+            data: function () {
+                return {
+                    cities: [{
+                        value: 'Beijing',
+                        label: '北京'
+                    }, {
+                        value: 'Shanghai',
+                        label: '上海'
+                    }, {
+                        value: 'Nanjing',
+                        label: '南京'
+                    }, {
+                        value: 'Chengdu',
+                        label: '成都'
+                    }, {
+                        value: 'Shenzhen',
+                        label: '深圳'
+                    }, {
+                        value: 'Guangzhou',
+                        label: '广州'
+                    }],
+                    value6: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app9" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+分组
+备选项进行分组展示
+
+:::使用ls-option-group对备选项进行分组，它的label属性为分组名
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value7" placeholder="请选择">
+                        <ls-option-group v-for="group in options3" :label="group.label">
+                            <ls-option v-for="item in group.options" :label="item.label" :value="item.value">
+                            </ls-option>
+                        </ls-option-group>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app9',
+            data: function () {
+                return {
+                    options3: [{
+                        label: '热门城市',
+                        options: [{
+                            value: 'Shanghai',
+                            label: '上海'
+                        }, {
+                            value: 'Beijing',
+                            label: '北京'
+                        }]
+                    }, {
+                        label: '城市名',
+                        options: [{
+                            value: 'Chengdu',
+                            label: '成都'
+                        }, {
+                            value: 'Shenzhen',
+                            label: '深圳'
+                        }, {
+                            value: 'Guangzhou',
+                            label: '广州'
+                        }, {
+                            value: 'Dalian',
+                            label: '大连'
+                        }]
+                    }],
+                    value7: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app10" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可搜索
+可以利用搜索功能快速查找选项
+
+:::为ls-select添加filterable属性即可启用搜索功能。默认情况下，Select 会找出所有label属性包含输入值的选项。如果希望使用其他的搜索逻辑，可以通过传入一个filter-method来实现。filter-method为一个Function，它会在输入值发生变化时调用，参数为当前输入值。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-select v-model="value8" filterable="" placeholder="请选择" no-match-text="无匹配数据">
+                        <ls-option v-for="item in options" :label="item.label" :value="item.value">
+                        </ls-option>
+                    </ls-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app10',
+            data: function () {
+                return {
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value8: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Select 属性
+    参数	说明	类型	可选值	默认值
+    multiple	是否多选	boolean	—	false
+    collapse-tags	是否多选时省略显示	boolean	—	false
+    disabled	是否禁用	boolean	—	false
+    value-key	作为 value 唯一标识的键名，绑定值为对象类型时必填	string	—	value
+    size	输入框尺寸	string	large/small/mini	—
+    clearable	单选时是否可以清空选项	boolean	—	false
+    multiple-limit	多选时用户最多可以选择的项目数，为 0 则不限制	number	—	0
+    name	select input 的 name 属性	string	—	—
+    placeholder	占位符	string	—	请选择
+    filterable	是否可搜索	boolean	—	false
+    allow-create	是否允许用户创建新条目，需配合 filterable 使用	boolean	—	false
+    filter-method	自定义过滤方法	function	—	—
+    remote	是否为远程搜索	boolean	—	false
+    remote-method	远程搜索方法	function	—	—
+    loading	是否正在从远程获取数据	boolean	—	false
+    loading-text	远程加载时显示的文字	string	—	加载中
+    no-match-text	搜索条件无匹配时显示的文字	string	—	无匹配数据
+    no-data-text	选项为空时显示的文字	string	—	无数据
+    popper-class Select	下拉框的类名	string	—	—
+    default-first-option	在输入框按下回车，选择第一个匹配项。需配合 filterable 或 remote 使用	boolean	-	false
+    Select 事件
+    事件名称	说明	回调参数
+    change	选中值发生变化时触发	目前的选中值
+    visible-change	下拉框出现/隐藏时触发	出现则为 true，隐藏则为 false
+    remove-tag	多选模式下移除tag时触发	移除的tag值
+    clear	可清空的单选模式下用户点击清空按钮时触发	—
+    Option Group属性
+    参数	说明	类型	可选值	默认值
+    value	选项的值	string/number/object	—	—
+    label	选项的标签，若不设置则默认与 value 相同	string/number	—	—
+    disabled	是否禁用该选项	boolean	—	false
+</div>
+
+</body>
+</html>
+

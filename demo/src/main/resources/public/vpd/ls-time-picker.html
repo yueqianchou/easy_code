@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-time-picker 时间选择器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-time-picker 时间选择器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+用于选择或输入日期
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+固定时间点
+提供几个固定的时间点供用户选择
+
+使用 ls-time-select 标签，分别通过star、end和step指定可选的起始时间、结束时间和步长
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-time-select v-model="value1" :picker-options="{
+      start: '08:30',
+      step: '00:15',
+      end: '18:30'
+    }" placeholder="选择时间">
+                    </ls-time-select>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    value1: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+任意时间点
+可以选择任意时间
+
+使用 ls-time-picker 标签，通过selectableRange限制可选时间范围
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-time-picker v-model="value2" :picker-options="{
+      selectableRange: '18:30:00 - 20:30:00'
+    }" placeholder="任意时间点">
+                    </ls-time-picker>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    value2: new Date(2016, 9, 10, 18, 40)
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+固定时间范围
+若先选择开始时间，则结束时间内备选项的状态会随之改变
+
+::: demo 通过设置show-icon属性来显示 Alert 的 icon，这能更有效地向用户展示你的显示意图。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-time-select placeholder="起始时间" v-model="startTime" :picker-options="{
+        start: '08:30',
+        step: '00:15',
+        end: '18:30'
+      }">
+                        </ls-time-select>
+                        <ls-time-select placeholder="结束时间" v-model="endTime" :picker-options="{
+        start: '08:30',
+        step: '00:15',
+        end: '18:30',
+        minTime: startTime
+      }">
+                        </ls-time-select>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    startTime: '',
+                    endTime: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+任意时间范围
+可选择任意的时间范围
+
+添加is-range属性即可选择时间范围
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-time-picker is-range="" v-model="value3" placeholder="选择时间范围">
+                    </ls-time-picker>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    value3: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    readonly	只读	boolean	—	false
+    disabled	禁用	boolean	—	false
+    editable	文本框可输入	boolean	—	true
+    clearable	是否显示清除按钮	boolean	—	true
+    size	输入框尺寸	string	large, small, mini	—
+    placeholder	占位内容	string	—	—
+    value	值	string	—	—
+    align	对齐方式	string	left, center, right	left
+    popper-class	下拉框的类名	string	—	—
+    事件
+    事件名称	说明	回调参数
+    change	当 input 的值改变时触发，返回值和文本框一致	formatted value
+</div>
+
+</body>
+</html>
+

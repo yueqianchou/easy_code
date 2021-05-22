@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-loading 加载</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-loading 加载</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+加载数据时显示动效。
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+容器加载
+在表格等容器中加载数据时显示。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-table v-loading.body="loading" :data="tableData" style="width: 100%">
+                        <ls-table-column prop="date" label="日期" width="180">
+                        </ls-table-column>
+                        <ls-table-column prop="name" label="姓名" width="180">
+                        </ls-table-column>
+                        <ls-table-column prop="address" label="地址">
+                        </ls-table-column>
+                    </ls-table>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+        h3,p {
+            margin: 0;
+        }
+    </style>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    tableData: [{
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }],
+                    loading: true,
+                    loading2: true,
+                    fullscreenLoading: false
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                setTimeout(() => {
+                    this.loading = false;
+            }, 2000);
+            },
+            methods: {
+                hello : function () {
+                    alert('Hello World!');
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义加载
+自定义加载的文字、图标和背景颜色。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-table v-loading="loading2" element-loading-text="拼命加载中" :data="tableData" style="width: 100%">
+                        <ls-table-column prop="date" label="日期" width="180">
+                        </ls-table-column>
+                        <ls-table-column prop="name" label="姓名" width="180">
+                        </ls-table-column>
+                        <ls-table-column prop="address" label="地址">
+                        </ls-table-column>
+                    </ls-table>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+        h3,p {
+            margin: 0;
+        }
+    </style>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    tableData: [{
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }],
+                    loading: true,
+                    loading2: true,
+                    fullscreenLoading: false
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                setTimeout(() => {
+                    this.loading2 = false;
+            }, 2000);
+
+            },
+            methods: {
+                hello: function () {
+                    alert('Hello World!');
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+整页加载
+整个页面加载的时候显示。
+
+::: 全屏遮罩需要添加fullscreen修饰符（遮罩会插入至 body 上），此时若需要锁定屏幕的滚动，可以使用lock修饰符
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button type="primary" @click="openFullScreen" v-loading.fullscreen.lock="fullscreenLoading">
+                        显示整页加载，3 秒后消失
+                    </ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    fullscreenLoading: false
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                openFullScreen:function() {
+                    this.fullscreenLoading = true;
+                    setTimeout(() => {
+                        this.fullscreenLoading = false;
+                },3000)
+                },
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Options
+    参数	说明	类型	可选值	默认值
+    target	Loading 需要覆盖的 DOM 节点。可传入一个 DOM 对象或字符串；若传入字符串，则会将其作为参数传入 document.querySelector以获取到对应 DOM 节点	object/string	—	document.body
+    body	同 v-loading 指令中的 body 修饰符	boolean	—	false
+    fullscreen	同 v-loading 指令中的 fullscreen 修饰符	boolean	—	true
+    lock	同 v-loading 指令中的 lock 修饰符	boolean	—	false
+    text	显示在加载图标下方的加载文案	string	—	—
+    customClass	Loading 的自定义类名	string	—	—
+</div>
+
+
+</body>
+</html>
+

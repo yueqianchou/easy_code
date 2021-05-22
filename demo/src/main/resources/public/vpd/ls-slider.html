@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-slider 滑块</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-slider 滑块</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+通过拖动滑块在一个固定区间内进行选择
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+在拖动滑块时，显示当前值
+
+:::通过设置绑定值自定义滑块的初始值
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <div class="block">
+                            <span class="demonstration">默认</span>
+                            <ls-slider v-model="value1"></ls-slider>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">自定义初始值</span>
+                            <ls-slider v-model="value2"></ls-slider>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">隐藏 Tooltip</span>
+                            <ls-slider v-model="value3" :show-tooltip="false"></ls-slider>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">格式化 Tooltip</span>
+                            <ls-slider v-model="value4" :format-tooltip="formatTooltip"></ls-slider>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">禁用</span>
+                            <ls-slider v-model="value5" disabled=""></ls-slider>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    value1: 0,
+                    value2: 50,
+                    value3: 36,
+                    value4: 48,
+                    value5: 42
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                formatTooltip: function (val) {
+                    return val / 100;
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+离散值
+选项可以是离散的
+
+:::改变step的值可以改变步长，通过设置show-step属性可以显示间断点
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <div class="block">
+                            <span class="demonstration">不显示间断点</span>
+                            <ls-slider v-model="value6" :step="10">
+                            </ls-slider>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">显示间断点</span>
+                            <ls-slider v-model="value7" :step="10" show-stops="">
+                            </ls-slider>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    value6: 0,
+                    value7: 0
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有输入框
+通过输入框设置精确数值
+
+:::设置show-input属性会在右侧显示一个输入框
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-slider v-model="value8" show-input="">
+                        </ls-slider>
+                        <h4>范围选择</h4>
+                        <p>设置range即可开启范围选择，此时绑定值是一个数组，其元素分别为最小边界值和最大边界值</p>
+                        <ls-slider v-model="value9" range="" show-stops="" :max="10">
+                        </ls-slider>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    value8: 0,
+                    value9: 0
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Slide 属性
+    参数	说明	类型	可选值	默认值
+    min	最小值	number	—	0
+    max	最大值	number	—	100
+    disabled	是否禁用	boolean	—	false
+    step	步长	number	—	1
+    show-input	是否显示输入框，仅在非范围选择时有效	boolean	—	false
+    show-input-controls	在显示输入框的情况下，是否显示输入框的控制按钮	boolean	—	true
+    show-stops	是否显示间断点	boolean	—	false
+    show-tooltip	是否显示 tooltip	boolean	—	true
+    format-tooltip	格式化 tooltip message	Function(value)	—	—
+    range	是否为范围选择	boolean	—	false
+    vertical	是否竖向模式	boolean	—	false
+    height	Slider 高度，竖向模式时必填	String	—	—
+    Slide 事件
+    事件名称	说明	类型
+    change	值改变时触发（使用鼠标拖曳时，只在松开鼠标后触发）	改变后的值
+</div>
+
+</body>
+</html>
+

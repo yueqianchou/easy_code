@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-tabs 标签页</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-tabs 标签页</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+
+分隔内容上有关联但属于不同类别的数据集合。
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+基础的、简洁的标签页,Tabs 组件提供了选项卡功能，默认选中第一个标签页，你也可以通过 value 属性来指定当前选中的标签页。。
+
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tabs v-model="activeName" @tab-click="handleClick">
+                        <ls-tab-pane label="用户管理" name="first">用户管理</ls-tab-pane>
+                        <ls-tab-pane label="配置管理" name="second">配置管理</ls-tab-pane>
+                        <ls-tab-pane label="角色管理" name="third">角色管理</ls-tab-pane>
+                        <ls-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</ls-tab-pane>
+                    </ls-tabs>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    activeName: 'second'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleClick:function(tab, event) {
+                    console.log(tab, event);
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+选项卡样式
+选项卡样式的标签页,只需要设置 type 属性为 card 就可以使选项卡改变为标签风格。
+
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tabs v-model="activeName2" type="card" @tab-click="handleClick">
+                        <ls-tab-pane label="用户管理" name="first">用户管理</ls-tab-pane>
+                        <ls-tab-pane label="配置管理" name="second">配置管理</ls-tab-pane>
+                        <ls-tab-pane label="角色管理" name="third">角色管理</ls-tab-pane>
+                        <ls-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</ls-tab-pane>
+                    </ls-tabs>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    activeName2: 'first'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleClick:function(tab, event) {
+                    console.log(tab, event);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+卡片化
+卡片化的标签页,将type设置为border-card。
+
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tabs type="border-card">
+                        <ls-tab-pane label="用户管理">用户管理</ls-tab-pane>
+                        <ls-tab-pane label="配置管理">配置管理</ls-tab-pane>
+                        <ls-tab-pane label="角色管理">角色管理</ls-tab-pane>
+                        <ls-tab-pane label="定时任务补偿">定时任务补偿</ls-tab-pane>
+                    </ls-tabs>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义标签页
+可以通过具名 slot 来实现自定义标签页的内容。
+
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tabs type="border-card">
+                        <ls-tab-pane>
+                            <span slot="label"><i class="ls-icon-date"></i> 我的行程</span>
+                            我的行程
+                        </ls-tab-pane>
+                        <ls-tab-pane label="消息中心">消息中心</ls-tab-pane>
+                        <ls-tab-pane label="角色管理">角色管理</ls-tab-pane>
+                        <ls-tab-pane label="定时任务补偿">定时任务补偿</ls-tab-pane>
+                    </ls-tabs>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+动态增减标签页
+增减标签页按钮只能在选项卡样式的标签页下使用。
+
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tabs v-model="editableTabsValue" type="card" editable="" @edit="handleTabsEdit">
+                        <ls-tab-pane :key="item.name" v-for="(item, index) in editableTabs" :label="item.title" :name="item.name">
+                            {{item.content}}
+                        </ls-tab-pane>
+                    </ls-tabs>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+                    editableTabsValue: '2',
+                    editableTabs: [{
+                        title: 'Tab 1',
+                        name: '1',
+                        content: 'Tab 1 content'
+                    }, {
+                        title: 'Tab 2',
+                        name: '2',
+                        content: 'Tab 2 content'
+                    }],
+                    tabIndex: 2
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleTabsEdit:function(targetName, action) {
+                    if (action === 'add') {
+                        let newTabName = ++this.tabIndex + '';
+                        this.editableTabs.push({
+                            title: 'New Tab',
+                            name: newTabName,
+                            content: 'New Tab content'
+                        });
+                        this.editableTabsValue = newTabName;
+                    }
+                    if (action === 'remove') {
+                        let tabs = this.editableTabs;
+                        let activeName = this.editableTabsValue;
+                        if (activeName === targetName) {
+                            tabs.forEach((tab, index) => {
+                                if (tab.name === targetName) {
+                                let nextTab = tabs[index + 1] || tabs[index - 1];
+                                if (nextTab) {
+                                    activeName = nextTab.name;
+                                }
+                            }
+                        });
+                        }
+
+                        this.editableTabsValue = activeName;
+                        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+                    }
+                }
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app6" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义增加标签页触发器
+::: 定义
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <div style="margin-bottom: 20px;">
+                            <ls-button size="small" @click="addTab(editableTabsValue2)">
+                                add tab
+                            </ls-button>
+                        </div>
+                        <ls-tabs v-model="editableTabsValue2" type="card" closable="" @tab-remove="removeTab">
+                            <ls-tab-pane v-for="(item, index) in editableTabs2" :key="item.name" :label="item.title" :name="item.name">
+                                {{item.content}}
+                            </ls-tab-pane>
+                        </ls-tabs>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app6',
+            data: function () {
+                return {
+                    editableTabsValue2: '2',
+                    editableTabs2: [{
+                        title: 'Tab 1',
+                        name: '1',
+                        content: 'Tab 1 content'
+                    }, {
+                        title: 'Tab 2',
+                        name: '2',
+                        content: 'Tab 2 content'
+                    }],
+                    tabIndex: 2
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                addTab(targetName) {
+                    let newTabName = ++this.tabIndex + '';
+                    this.editableTabs2.push({
+                        title: 'New Tab',
+                        name: newTabName,
+                        content: 'New Tab content'
+                    });
+                    this.editableTabsValue2 = newTabName;
+                },
+                removeTab(targetName) {
+                    let tabs = this.editableTabs2;
+                    let activeName = this.editableTabsValue2;
+                    if (activeName === targetName) {
+                        tabs.forEach((tab, index) => {
+                            if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                    }
+
+                    this.editableTabsValue2 = activeName;
+                    this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Tabs 属性
+    参数	说明	类型	可选值	默认值
+    type	风格类型	string	card/border-card	—
+    closable	标签是否可关闭	boolean	—	false
+    addable	标签是否可增加	boolean	—	false
+    editable	标签是否同时可增加和关闭	boolean	—	false
+    active-name(deprecated)	选中选项卡的 name	string	—	第一个选项卡的 name
+    value	绑定值，选中选项卡的 name	string	—	第一个选项卡的 name
+    Tabs 事件
+    事件名称	说明	回调参数
+    tab-click	tab 被选中时触发	被选中的标签 tab 实例
+    tab-remove	点击 tab 移除按钮后触发	被删除的标签的 name
+    tab-add	点击 tabs 的新增按钮后触发	—
+    edit	点击 tabs 的新增按钮或 tab 被关闭后触发	(targetName, action)
+    Tab-pane 属性
+    参数	说明	类型	可选值	默认值
+    label	选项卡标题	string	—	—
+    disabled	是否禁用	boolean	—	false
+    name	与选项卡 activeName 对应的标识符，表示选项卡别名	string	—	该选项卡在选项卡列表中的顺序值，如第一个选项卡则为'1'
+    closable	标签是否可关闭	boolean	—	false
+</div>
+
+</body>
+</html>
+

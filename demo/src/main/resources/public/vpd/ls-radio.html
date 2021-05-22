@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-radio 单选框</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-radio 单选框</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+
+在一组备选项中进行单选
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器
+
+:::要使用 Radio 组件，只需要设置v-model绑定变量，选中意味着变量的值为相应 Radio label属性的值，label可以是String或者Number。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-radio class="radio" v-model="radio" label="1">备选项1</ls-radio>
+                        <ls-radio class="radio" v-model="radio" label="2">备选项2</ls-radio>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    radio: '1'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+禁用状态
+单选框不可用的状态
+
+:::注意：请牢记，选中的条件是绑定的变量值等于label中的值。只要在ls-radio元素中设置disabled属性即可，它接受一个Boolean，true为禁用。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-radio disabled="" v-model="radio1" label="禁用">备选项</ls-radio>
+                        <ls-radio disabled="" v-model="radio1" label="选中且禁用">备选项</ls-radio>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    radio1: '1'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+单选框组
+适用于在多个互斥的选项中选择的场景
+
+:::只需要把ls-radio元素换成ls-radio-button元素即可，此外，muse 还提供了size属性给按钮组，支持large和small两种（如果不设定为默认）。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-radio-group v-model="radio2">
+                        <ls-radio :label="3">备选项1</ls-radio>
+                        <ls-radio :label="6">备选项2</ls-radio>
+                        <ls-radio :label="9">备选项3</ls-radio>
+                    </ls-radio-group>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    radio2: '1'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+按钮样式
+按钮样式的单选组合
+
+:::结合ls-radio-group元素和子元素ls-radio可以实现单选组，在ls-radio-group中绑定v-model，在ls-radio中设置好label即可，无需再给每一个ls-radio绑定变量，另外，还提供了change事件来响应变化，它会传入一个参数value。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-radio-group v-model="radio3">
+                            <ls-radio-button label="上海"></ls-radio-button>
+                            <ls-radio-button label="北京"></ls-radio-button>
+                            <ls-radio-button label="广州"></ls-radio-button>
+                            <ls-radio-button label="深圳"></ls-radio-button>
+                        </ls-radio-group>
+                        <div style="margin: 15px 0;"></div>
+                        <ls-radio-group v-model="radio4">
+                            <ls-radio-button label="上海"></ls-radio-button>
+                            <ls-radio-button label="北京" :disabled="true"></ls-radio-button>
+                            <ls-radio-button label="广州"></ls-radio-button>
+                            <ls-radio-button label="深圳"></ls-radio-button>
+                        </ls-radio-group>
+                        <div style="margin: 15px 0;"></div>
+                        <ls-radio-group v-model="radio5" :disabled="true">
+                            <ls-radio-button label="上海"></ls-radio-button>
+                            <ls-radio-button label="北京"></ls-radio-button>
+                            <ls-radio-button label="广州"></ls-radio-button>
+                            <ls-radio-button label="深圳"></ls-radio-button>
+                        </ls-radio-group>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    radio3: '上海',
+                    radio4: '上海',
+                    radio5: '上海'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Radio 属性
+    参数	说明	类型	可选值	默认值
+    label	Radio 的 value	string,number,boolean	—	—
+    disabled	是否禁用	boolean	—	false
+    name	原生 name 属性	string	—	—
+    Radio-Group 属性
+    参数	说明	类型	可选值	默认值
+    label	Radio 的 value	string,number,boolean	—	—
+    disabled	是否禁用	boolean	—	false
+    name	原生 name 属性	string	—	—
+    Radio-Group 事件
+    事件	说明	回调参数
+    change	绑定值变化时触发的事件	选中的 Radio label 值
+    Radio-Button 属性
+    参数	说明	类型	可选值	默认值
+    label	Radio 的 value	string,number	—	—
+    disabled	是否禁用	boolean	—	false
+</div>
+
+</body>
+</html>
+

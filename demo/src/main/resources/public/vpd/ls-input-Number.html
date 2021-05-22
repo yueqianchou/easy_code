@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-input-Number 计数器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-input-Number 计数器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+仅允许输入标准的数字值，可定义范围
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+:::要使用它，只需要在ls-input-number元素中使用v-model绑定变量即可，变量的初始值即为默认值。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input-number v-model="num1" @change="handleChange" :min="1" :max="10"></ls-input-number>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    num1: 1
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleChange : function (value) {
+                    console.log(value);
+                }
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+禁用状态
+:::disabled属性接受一个Boolean，设置为true即可禁用整个组件，如果你只需要控制数值在某一范围内，可以设置min属性和max属性，不设置min和max时，最小值为 0。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input-number v-model="num2" :disabled="true"></ls-input-number>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    num2: 1
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+步数
+允许定义递增递减的步数控制
+
+:::设置step属性可以控制步长，接受一个Number。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input-number v-model="num3" :step="2"></ls-input-number>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    num3: 5
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+尺寸
+额外提供了 large、small 两种尺寸的数字输入框
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-input-number size="large" v-model="num4"></ls-input-number>
+                        <ls-input-number v-model="num5"></ls-input-number>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    num4: 1,
+                    num5: 1,
+                    num6: 1
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    InputNumber 计数器
+    参数	说明	类型	可选值	默认值
+    value	绑定值	number	—	—
+    min	设置计数器允许的最小值	number	—	0
+    max	设置计数器允许的最大值	number	—	Infinity
+    step	计数器步长	number	—	1
+    size	计数器尺寸	string	large, small	—
+    disabled	是否禁用计数器	boolean	—	false
+    controls	是否使用控制按钮	boolean	—	true
+    debounce	输入时的去抖延迟，毫秒	number	—	300
+    InputNumber 事件
+    事件名称	说明	回调参数
+    change	绑定值被改变时触发	最后变更的值
+</div>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="detail" v-cloak="">
+
+    <ls-container direction="vertical" style="width:90%;margin:0 auto">
+        <ls-header>
+            <h3 align="center">订单详情页面（查看）</h3>
+        </ls-header>
+        <ls-main>
+            <template>
+                <ls-form inline="" :model="order" class="demo-form-inline">
+                    <ls-form-item label="订单名称：">
+                        <ls-input v-model="order.order_name" auto-complete="off"></ls-input>
+                    </ls-form-item>
+                    <ls-form-item label="订单状态：">
+                        <ls-input value="已下单" v-if="order.order_status==0"></ls-input>
+                        <ls-input value="已发货" v-if="order.order_status==1"></ls-input>
+                        <ls-input value="已签收" v-if="order.order_status==2"></ls-input>
+                        <ls-input value="已完成" v-if="order.order_status==3"></ls-input>
+                    </ls-form-item>
+                </ls-form>
+            </template>
+
+            <template>
+                <ls-table :data="orderDetails" border=""
+                          highlight-current-row="" stripe=""
+                          height="460" style="width: 100%">
+                    <ls-table-column prop="product_name" label="商品名称">
+                    </ls-table-column>
+                    <ls-table-column prop="unit_price" label="单价（元）">
+                    </ls-table-column>
+                    <ls-table-column prop="piece" label="件数">
+                    </ls-table-column>
+                    <ls-table-column prop="money" label="金额">
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="图片">
+                        <template scope="scope">
+                            <img width="100%" :src="scope.row.image" alt="" height="80px">
+                        </template>
+                    </ls-table-column>
+                </ls-table>
+            </template>
+
+        </ls-main>
+    </ls-container>
+
+</div>
+
+
+<script>
+    var ORDER_ID = location.search.substr(10);
+    Lvm.create({
+            rootElement: '#detail',
+            data: function () {
+                return {
+                    order: {},
+                    orderDetails: [],
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                _this.getOrderDetailById(ORDER_ID);
+            },
+            methods: {
+                getOrderDetailById: function (order_id) {
+                    var _this = this;
+                    Lvm.$http.get('/getOrderDetailById/' + order_id).then(function (result) {
+                        _this.orderDetails = result.data.orderDetails;
+                        _this.order = result.data.order;
+                    })
+                },
+
+
+            }
+        }
+    )
+</script>
+</body>
+</html>

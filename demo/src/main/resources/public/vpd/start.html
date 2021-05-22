@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lvm Demo</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-container>
+            <ls-aside width="1500px" Style="margin:0 auto">
+                <template>
+                    <ls-row class="tac">
+                        <ls-col :span="6">
+                            <ls-menu default-active="1" :default-openeds="[&quot;1&quot;]" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>vpd文档</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <ls-menu-item index="3-1" @click="window.location.href='http://localhost:11880/vpd/is-alert.html'">ls-alert 警告</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-autocomplete.html'">ls-autocomplete 自动完成</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-badge.html'">ls-badge 标记</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-button.html'">ls-button 按钮</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-card.html'">ls-card 卡片</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-carsousel.html'">ls-carsousel 走马灯</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-cascader.html'">ls-cascader 级联选择器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-checkbox.html'">ls-checkbox 多选框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-collapse.html'">ls-collapse 折叠面板</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-color-picker.html'">ls-color-picker 颜色选择器</ls-menu-item>
+                                        <ls-menu-item index="3-1" @click="window.location.href='http://localhost:11880/vpd/ls-tag.html'">ls-tag 标签</ls-menu-item>
+                                    </ls-menu-item-group>
+                                </ls-submenu>
+                            </ls-menu>
+                        </ls-col>
+                        <ls-col :span="6">
+                            <ls-menu default-active="1" :default-openeds="[&quot;1&quot;]" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>vpd文档</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <ls-menu-item index="3-1" @click="window.location.href='http://localhost:11880/vpd/ls-container.html'">ls-container 布局的容器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-date-picker.html'">ls-date-picker 日期选择器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-editor.html'">ls-editor 富文本编辑器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-time-picker.html'">ls-time-picker 时间选择器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-tooltip.html'">ls-tooltip 文字提示</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-form.html'">ls-form 表单</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-upload.html'">ls-upload 上传</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-dialog.html'">ls-dialog 对话框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-dropdown.html'">ls-dropdown 下拉菜单</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-icon.html'">ls-icon 图标</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-loading.html'">ls-loading 加载</ls-menu-item>
+
+                                </ls-submenu>
+                            </ls-menu>
+                        </ls-col>
+                        <ls-col :span="6">
+                            <ls-menu default-active="1" :default-openeds="[&quot;1&quot;]" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>vpd文档</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <ls-menu-item index="3-1" @click="window.location.href='http://localhost:11880/vpd/ls-input.html'">ls-input 输入框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-input-Number.html'">ls-input-Number 计数器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-layout.html'">ls-layout 布局</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-menu.html'">ls-menu 导航</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-message.html'">ls-message 消息提示</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-message-box.html'">ls-message-box 弹框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-notification.html'">ls-notification 通知</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-pagination.html'">ls-pagination 分页</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-popover.html'">ls-popover 弹出框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-progress.html'">ls-progress 进度条</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-scroll-top.html'">ls-scroll-top 回到顶部控件</ls-menu-item>
+                                    </ls-menu-item-group>
+                                </ls-submenu>
+                            </ls-menu>
+                        </ls-col>
+                        <ls-col :span="6">
+                            <ls-menu default-active="1" :default-openeds="[&quot;1&quot;]" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>vpd文档</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <ls-menu-item index="3-1" @click="window.location.href='http://localhost:11880/vpd/ls-radio.html'">ls-radio 单选框</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-rate.html'">ls-rate 评分</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-scrollbar.html'">ls-scrollbar 滚动条</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-select.html'">ls-select 选择器</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-slider.html'">ls-slider 滑块</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-steps.html'">ls-steps 步骤条</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-switch.html'">ls-switch 开关</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-table.html'">ls-table 表格</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-table-tree.html'">ls-table-tree 树形表格</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-tabs.html'">ls-tabs 标签页</ls-menu-item>
+                                        <ls-menu-item index="3-2" @click="window.location.href='http://localhost:11880/vpd/ls-tree.html'">ls-tree 树形控件</ls-menu-item>
+
+                                    </ls-menu-item-group>
+                                </ls-submenu>
+                            </ls-menu>
+                        </ls-col>
+                    </ls-row>
+                </template>
+            </ls-aside>
+        </ls-container>
+    </template>
+</div>
+<script>
+    Lvm.create({
+        rootElement: '#app',
+        data: function () {
+            return {
+
+            }
+        },
+        mounted: function () {
+            var _this = this;
+        },
+        methods: {
+            handleOpen: function (key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose: function (key, keyPath) {
+                console.log(key, keyPath);
+            },
+
+        }
+
+    })
+</script>
+</body>
+</html>
+

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="adddetail" v-cloak="">
+    <ls-container direction="vertical" style="width:90%;margin:0 auto">
+        <ls-header>
+            <h3 align="center">新增订单</h3>
+        </ls-header>
+        <ls-main>
+            <template>
+                <ls-form ref="form" :model="form" :rules="rules" label-width="200px" class="nomal-form">
+                    <ls-form-item label="订单名称：" prop="order_name" style="width:70%">
+                        <ls-input v-model="form.order_name"></ls-input>
+                    </ls-form-item>
+
+                    <ls-form-item label="付款方式：" prop="pay_mode">
+                        <ls-radio class="radio" v-model="form.pay_mode" label="0">线下</ls-radio>
+                        <ls-radio class="radio" v-model="form.pay_mode" label="1">线上</ls-radio>
+                    </ls-form-item>
+
+                    <ls-form-item label="订单状态：" prop="order_status" style="width:70%">
+                        <ls-select v-model="form.order_status" placeholder="请选择订单状态">
+                            <ls-option label="已下单" value="0"></ls-option>
+                            <ls-option label="已发货" value="1"></ls-option>
+                            <ls-option label="已签收" value="2"></ls-option>
+                            <ls-option label="已完成" value="3"></ls-option>
+                        </ls-select>
+                    </ls-form-item>
+
+                    <ls-form-item label="下单时间：" required="">
+                        <ls-col :span="15">
+                            <ls-form-item prop="order_time">
+                                <ls-date-picker type="datetime" format="yyyy-MM-dd HH:mm:ss"
+                                                placeholder="选择日期" v-model="form.order_time"
+                                                style="width: 100%"></ls-date-picker>
+                            </ls-form-item>
+                        </ls-col>
+                    </ls-form-item>
+
+                    <ls-form-item label="备注：" prop="remarks" style="width:70%">
+                        <ls-input type="textarea" v-model="form.remarks"></ls-input>
+                    </ls-form-item>
+                </ls-form>
+            </template>
+
+            <h3 align="center">订单详情</h3>
+            <template>
+                <div style="float: right">
+                    <ls-button type="primary" @click="dialogFormVisible = true"
+                               style="margin-bottom:6px">新增商品
+                    </ls-button>
+
+                    <ls-dialog title="新增商品详情(弹框)" v-model="dialogFormVisible" style="text-align: center;">
+                        <ls-form :model="orderDetail" :rules="orderDetailRules" ref="orderDetail"
+                                 label-width="100px" class="nomal-form">
+                            <ls-form-item label="商品名称：" prop="product_name">
+                                <ls-input v-model="orderDetail.product_name" :maxlength="20"></ls-input>
+                            </ls-form-item>
+                            <ls-form-item label="单价：" prop="unit_price">
+                                <ls-input-number v-model="orderDetail.unit_price" :step="5" @change="computedMoney2"
+                                                 size="large" :min="0"
+                                                 type="number"></ls-input-number>
+                            </ls-form-item>
+                            <ls-form-item label="件数：">
+                                <ls-input-number v-model="orderDetail.piece" :step="2" @change="computedMoney"
+                                                 size="large" :min="1"
+                                                 type="number"></ls-input-number>
+                            </ls-form-item>
+                            <ls-form-item label="金额：">
+                                <ls-input disabled="true" v-model="orderDetail.money"></ls-input>
+                            </ls-form-item>
+                            <ls-form-item label="图片：">
+                                <ls-upload class="upload-demo" ref="upload" action="uploadPictureOorderdetail"
+                                           :auto-upload="true" :file-list="filelist" :before-upload="beforeAvatarUpload"
+                                           :on-success="uploadsuccess">
+                                    <ls-button style="margin-left: 10px;" size="small" type="success"
+                                               @click="uploadPictureOorderdetail()">上传到服务器
+                                    </ls-button>
+                                </ls-upload>
+                            </ls-form-item>
+
+                        </ls-form>
+                        <div slot="footer" class="dialog-footer">
+                            <ls-button @click="resetForm('orderDetail')">取 消</ls-button>
+                            <ls-button type="primary" @click="addDeatilJS('orderDetail');">确 定</ls-button>
+                        </div>
+                    </ls-dialog>
+                </div>
+            </template>
+
+
+            <!--订单详情-->
+            <template>
+                <ls-table :data="orderDetails" border="">
+                    <ls-table-column prop="product_name" label="商品名称" width="150">
+                    </ls-table-column>
+                    <ls-table-column prop="unit_price" label="单价（元）" width="150">
+                    </ls-table-column>
+                    <ls-table-column prop="piece" label="件数">
+                    </ls-table-column>
+                    <ls-table-column prop="money" label="金额">
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="图片">
+                        <template scope="scope">
+                            <img width="100%" :src="scope.row.image" alt="" height="80px">
+                        </template>
+                    </ls-table-column>
+                    <ls-table-column prop="operation" label="操作">
+                        <template scope="scope">
+                            <ls-button @click="deleteOrderDetail(scope.$index)">删除</ls-button>
+                        </template>
+                    </ls-table-column>
+                </ls-table>
+            </template>
+        </ls-main>
+
+        <ls-footer>
+            <template>
+                <div style="margin: 13px 40%;">
+                    <ls-button type="primary" @click="submitForm('form')">新增</ls-button>
+                    <ls-button @click="gotoIndex()" type="primary" plain="">取消</ls-button>
+                </div>
+            </template>
+        </ls-footer>
+
+    </ls-container>
+
+
+</div>
+
+
+<script>
+    Lvm.create({
+            rootElement: '#adddetail',
+            data: function () {
+                return {
+                    labelPosition: 'left',
+                    orderId: '',
+                    form: {
+                        order_name: '',
+                        pay_mode: '0',
+                        order_status: '',
+                        order_time: '',
+                        del_flag: '0',
+                        order_id: '',
+                        remarks: ''
+
+                    },
+                    rules: {
+                        order_name: [
+                            {required: true, message: '请输入订单名称', trigger: 'blur'},
+                            {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
+                        ],
+                        pay_mode: [
+                            {required: true, message: '请选择付款方式', trigger: 'change'}
+                        ],
+                        order_time: [
+                            {type: 'date', required: true, message: '请选择下单时间', trigger: 'change'}
+                        ],
+
+                        order_status: [
+                            {required: true, message: '请选择订单状态', trigger: 'change'}
+                        ],
+                        remarks: [
+                            {required: true, message: '请填写描述', trigger: 'blur'},
+                            {min: 1, max: 200, message: '长度在 1 到 200 个字符', trigger: 'blur'}
+                        ]
+                    },
+                    orderDetails: [],
+                    dialogVisible: false,
+
+                    /*新增商品弹出框*/
+                    dialogFormVisible: false,
+                    orderDetail: {
+                        order_id: '',
+                        product_name: '',
+                        unit_price: 0,
+                        piece: 1,
+                        money: 0,
+                        image: ''
+                    },
+                    orderDetailRules: {
+                        product_name: [
+                            {required: true, message: '请输入产品名称', trigger: 'blur'},
+                            {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
+                        ],
+                        piece: [
+                            {type: 'date', required: true, message: '请选择下单时间', trigger: 'change'}
+                        ],
+
+                        money: [
+                            {required: true, message: '请选择订单状态', trigger: 'change'}
+                        ],
+                        image: [
+                            {required: true, message: '请填写描述', trigger: 'blur'},
+                            {min: 1, max: 200, message: '长度在 1 到 200 个字符', trigger: 'blur'}
+                        ]
+                    },
+
+                    /*文件列表*/
+                    filelist: [],
+                    imagOfUrl: '',
+                }
+            },
+            mounted: function () {
+                var _this = this;
+            },
+            methods: {
+                submitForm: function (formName) {
+                    var _this = this;
+                    _this.$refs[formName].validate(function (valid) {
+                        if (valid) {
+                            _this.onSubmit();
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
+                },
+                onSubmit: function () {
+                    var _this = this;
+                    var condition = {
+                        order_name: _this.form.order_name,
+                        pay_mode: _this.form.pay_mode,
+                        order_status: _this.form.order_status,
+                        order_time: _this.form.order_time,
+                        del_flag: _this.form.del_flag,
+                        order_id: _this.form.order_id,
+                        remarks: _this.form.remarks,
+                        orderDetails: _this.orderDetails
+                    }
+                    if (_this.orderDetails.length == 0) {
+                        _this.$message({
+                            showClose: true,
+                            message: '请添加商品',
+                            type: 'warning'
+                        })
+                        return;
+                    }
+                    Lvm.$http.post('/addOrderAndOrderDetail', condition).then(function (result) {
+                        _this.$confirm('添加成功', '', {
+                            confirmButtonText: '确定',
+                            type: 'warning'
+                        }).then(function () {
+                            //获取项目路径
+                            Lvm.$http.get('getProjectRootUrl').then(function (result) {
+                                window.location.href = result.data + "/index.html";
+                            })
+                        }).catch(function () {
+                        });
+                    })
+
+                },
+
+                deleteOrderDetail: function (index) {
+                    var _this = this;
+                    _this.orderDetails.splice(index, 1);
+                },
+                gotoIndex: function () {
+                    //获取项目路径
+                    Lvm.$http.get('getProjectRootUrl').then(function (result) {
+                        window.location.href = result.data + "/index.html";
+                    })
+                },
+                addDeatilJS: function (formName) {
+                    var _this = this;
+                    if (_this.filelist.length == 0) {
+                        _this.$message({
+                            showClose: true,
+                            message: '请上传图片',
+                            type: 'warning'
+                        })
+                        return;
+                    }
+                    _this.$refs[formName].validate(function (valid) {
+                        if (valid) {
+                            _this.orderDetail.image = _this.imagOfUrl;
+                            _this.orderDetails.push(_this.orderDetail);
+                            _this.clearOrderDetail();
+                            _this.dialogFormVisible = false;
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
+
+                },
+                computedMoney: function (value) {
+                    var _this = this;
+                    _this.orderDetail.money = _this.orderDetail.unit_price * value;
+                },
+                computedMoney2: function (value) {
+                    var _this = this;
+                    _this.orderDetail.money = value * _this.orderDetail.piece;
+                },
+                clearOrderDetail: function () {
+                    var _this = this;
+                    _this.orderDetail = {
+                        order_id: '',
+                        product_name: '',
+                        unit_price: 0,
+                        piece: 1,
+                        money: 0,
+                        image: ''
+                    };
+                    /*文件列表*/
+                    _this.filelist = [];
+                },
+                resetForm: function (formName) {
+                    var _this = this;
+                    _this.$refs[formName].resetFields();
+                    _this.clearOrderDetail();
+                    _this.dialogFormVisible = false;
+                },
+
+                //监听弹出框不能关闭
+                //监听弹出框不能关闭
+                handleClose(done) {
+                    this.$confirm('确认关闭？')
+                        .then(_ => {
+                        done();
+                })
+                .catch(_ => {});
+                },
+
+                //上传文件到服务器
+                uploadPictureOorderdetail: function () {
+                    this.$refs.upload.submit()
+                },
+
+                uploadsuccess: function (response, file, fileList) {
+                    var _this = this;
+                    _this.filelist = fileList.slice(fileList.length - 1);
+                    _this.imagOfUrl = response;
+                },
+                beforeAvatarUpload:function(file) {
+                    var _this=this;
+                    const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'  ;
+                    const isLt2M = file.size / 1024 / 1024 < 2;
+
+                    if (!isJPG) {
+                        _this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
+                    }
+                    if (!isLt2M) {
+                        _this.$message.error('上传头像图片大小不能超过 2MB!');
+                    }
+                    return isJPG && isLt2M;
+                },
+
+
+            }
+
+
+        }
+    )
+</script>
+
+</body>
+</html>

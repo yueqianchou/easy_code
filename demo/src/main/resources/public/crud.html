@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lvm Demo</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <ls-container direction="vertical" style="width:90%;margin:0 auto">
+        <ls-header>
+            <h3 align="center">mybatis功能页面</h3>
+        </ls-header>
+        <ls-main>
+            <template>
+                <ls-card class="box-card">
+                    <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">collection 的两种写法对比</span>
+                    </div>
+                    <div>
+                        1.resultmap之select 分页查询结果看控制台  <ls-button type="primary" @click="listPageOrder()">查看</ls-button><br><br>
+                        2.resultmap一般形式 分页查询结果看控制台   <ls-button type="primary" @click="listPageOrder2()">查看</ls-button><br><br>
+                        <ls-alert title="结论：可以看出 collection的select形式 分页不会按照collection结果分页
+                            一般形式会按照collection的结果条数来分页" type="success" :closable="false"></ls-alert>
+                    </div>
+                </ls-card>
+            </template>
+
+
+
+        </ls-main>
+        <ls-footer>
+
+        </ls-footer>
+    </ls-container>
+
+
+</div>
+
+
+<script>
+    Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+                //查询订单列表 collection select
+                listPageOrder: function () {
+                    var _this = this;
+                    Lvm.$http.post('/listPageOrder',{}).then(function (result) {
+                        console.info('resultmap之select',result.data);
+                    })
+                },
+                //查询订单列表一般形式
+                listPageOrder2: function () {
+                    var _this = this;
+                    Lvm.$http.post('/listPageOrder2',{}).then(function (result) {
+                        console.info('resultmap之一般形式',result.data);
+                    })
+                },
+
+
+
+
+
+
+
+
+            }
+        })
+</script>
+
+</body>
+</html>

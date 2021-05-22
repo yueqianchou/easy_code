@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-autocomplete 自动完成</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-autocomplete 自动完成</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+</div>
+
+<p style="color:royalblue">
+    用于输入框在输入时从候选项里自动匹配完成
+</p>
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+根据输入内容提供对应的输入建议
+
+::: autocomplete 是一个可带输入建议的输入框组件，fetch-suggestions 是一个返回输入建议的方法属性，如 querySearch(queryString, cb)，在该方法中你可以在你的输入建议数据准备好时通过 cb(data) 返回到 autocomplete 组件中。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-autocomplete class="inline-input" v-model="state1" :fetch-suggestions="querySearch" placeholder="请输入内容" @select="handleSelect">
+                    </ls-autocomplete>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+
+
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    restaurants: [],
+                    state1: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                _this.restaurants = this.loadAll();
+
+            },
+            methods: {
+                createFilter(queryString) {
+                    return (restaurant) => {
+                        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+                    };
+                },
+                querySearch : function (queryString, cb) {
+                    var restaurants = this.restaurants;
+                    var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+                    // 调用 callback 返回建议列表的数据
+                    cb(results);
+                },
+                handleSelect: function (item) {
+                    console.log(item);
+                },
+                loadAll: function () {
+                    return [
+                        {"value": "三全鲜食（北新泾店）", "address": "长宁区新渔路144号"},
+                        {"value": "Hot honey 首尔炸鸡（仙霞路）", "address": "上海市长宁区淞虹路661号"},
+                        {"value": "新旺角茶餐厅", "address": "上海市普陀区真北路988号创邑金沙谷6号楼113"},
+                        {"value": "泷千家(天山西路店)", "address": "天山西路438号"},
+                        {"value": "胖仙女纸杯蛋糕（上海凌空店）", "address": "上海市长宁区金钟路968号1幢18号楼一层商铺18-101"},
+                        {"value": "贡茶", "address": "上海市长宁区金钟路633号"},
+                        {"value": "豪大大香鸡排超级奶爸", "address": "上海市嘉定区曹安公路曹安路1685号"}
+                    ];
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+
+
+
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    valueKey	显示值的key	string	—	info
+    popper-class	下拉框的样式类	string	—	—
+    value	当前空间选中的值	string	—	—
+    name	是否显示图标	boolean	—	false
+    fetch-suggestions	返回输入建议的方法，仅当你的输入建议数据 resolve 时，通过调用 callback(data:[]) 来返回它	Function(queryString, callback)	—	—
+    trigger-on-focus	是否在输入框 focus 时显示建议列表	boolean	—	true
+    custom-item	通过该参数指定自定义的输入建议列表项的组件名	string	—	—
+    事件
+    事件名称	说明	回调参数
+    select	文本框输入框变化时，候选项的数据载入方法	queryString：输入的值；
+    cb：把得出的结果放入下拉框的方法
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-message-box 弹框</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-message-box 弹框</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+
+模拟系统的消息提示框而实现的一套模态对话框组件，用于消息提示、成功提示、错误提示、询问信息
+
+Vmd 注册了一个LsMessageBox对象，可以使用对象中的函数来调用，也可以使用Vmd在Vue原型中注册的方法来调用。
+在使用html开发中使用的是Vmd.MessageBox对象。
+在在main.js里完全引入，例如用this.$msgbox.alert('这是一条消息提示')或this.$alert('这是一条消息提示')。
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+消息提示
+当用户进行操作时会被触发，该对话框中断用户操作，直到用户确认知晓后才可关闭。值得一提的是，窗口被关闭后，它默认会返回一个Promise对象便于进行后续操作的处理。若不确定浏览器是否支持Promise，可自行引入第三方 polyfill 或像本例一样使用回调进行后续处理。
+
+:::调用MessageBox的alert方法即可打开消息提示，它模拟了系统的 alert，无法通过按下 ESC 或点击框外关闭
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button type="text" @click="open">点击打开 Message Box</ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        //import {LsMessageBox} from 'ls-vmd'
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open: function () {
+                    //LsMessageBox.alert('这是一段内容', '标题名称',{
+                    this.$alert('这是一段内容', '标题名称',{
+                        confirmButtonText: '确定',
+                        callback: function  (){
+                            console.log('这是一条消息提示')
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+确认消息
+提示用户确认其已经触发的动作，并询问是否进行此操作时会用到此对话框
+
+:::调用confirm方法即可打开消息提示，它模拟了系统的 confirm。Message Box 组件也拥有极高的定制性，我们可以传入options作为第三个参数，它是一个字面量对象。type字段表明消息类型，可以为success，error，info和warning，无效的设置将会被忽略。注意，第二个参数title必须定义为String类型，如果是Object，会被理解为options。在这里我们用了 Promise 来处理后续响应。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button type="text" @click="open2">点击打开 Message Box</ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        //import {LsMessageBox} from 'ls-vmd'
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open2: function () {
+                    //LsMessageBox.confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(function() {
+                        console.log('删除成功')
+                    }).catch(function() {
+                        console.log('已取消删除')
+                    });
+                },
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+提交内容
+当用户进行操作时会被触发，中断用户操作，提示用户进行输入的对话框。
+
+:::调用prompt方法即可打开消息提示，它模拟了系统的 prompt。可以用inputPattern字段自己规定匹配模式，或者用inputValidator规定校验函数，可以返回Boolean或String，Boolean为false或字符串时均表示校验未通过，String相当于定义了inputErrorMessage字段。此外，可以用inputPlaceholder字段来定义输入框的占位符。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button type="text" @click="open3">点击打开 Message Box</ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        //import {LsMessageBox} from 'ls-vmd'
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open3: function  () {
+                    //LsMessageBox.prompt('请输入邮箱', '提示', {
+                    this.$prompt('请输入邮箱', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                        inputErrorMessage: '邮箱格式不正确'
+                    }).then(function( o ) {
+                        console.log(`你的邮箱是：${o.value}`)
+                    }).catch(function() {
+                        console.log('取消输入')
+                    });
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Options
+    参数	说明	类型	可选值	默认值
+    title	MessageBox 标题	string	—	—
+    message	MessageBox 消息正文内容	string	—	—
+    type	消息类型，用于显示图标	string	success/info/warning/error	—
+    customClass	MessageBox 的自定义类名	string	—	—
+    callback	若不使用 Promise，可以使用此参数指定 MessageBox 关闭后的回调	function(action, instance)，action 的值为'confirm'或'cancel', instance 为 MessageBox 实例，可以通过它访问实例上的属性和方法	—	—
+    beforeClose	MessageBox 关闭前的回调，会暂停实例的关闭	function(action, instance, done)，action 的值为'confirm'或'cancel'；instance 为 MessageBox 实例，可以通过它访问实例上的属性和方法；done 用于关闭 MessageBox 实例	—	—
+    lockScroll	是否在 MessageBox 出现时将 body 滚动锁定	boolean	—	true
+    showCancelButton	是否显示取消按钮	boolean	—	false（以 confirm 和 prompt 方式调用时为 true）
+    showConfirmButton	是否显示确定按钮	boolean	—	true
+    cancelButtonText	取消按钮的文本内容	string	—	取消
+    confirmButtonText	确定按钮的文本内容	string	—	确定
+    cancelButtonClass	取消按钮的自定义类名	string	—	—
+    confirmButtonClass	确定按钮的自定义类名	string	—	—
+    closeOnClickModal	是否可通过点击遮罩关闭 MessageBox	boolean	—	true（以 alert 方式调用时为 false）
+    closeOnPressEscape	是否可通过按下 ESC 键关闭 MessageBox	boolean	—	true（以 alert 方式调用时为 false）
+    showInput	是否显示输入框	boolean	—	false（以 prompt 方式调用时为 true）
+    inputPlaceholder	输入框的占位符	string	—	—
+    inputValue	输入框的初始文本	string	—	—
+    inputPattern	输入框的校验表达式	regexp	—	—
+    inputValidator	输入框的校验函数。可以返回布尔值或字符串，若返回一个字符串, 则返回结果会被赋值给 inputErrorMessage	function	—	—
+    inputErrorMessage	校验未通过时的提示文本	string	—	输入的数据不合法
+</div>
+
+</body>
+</html>
+

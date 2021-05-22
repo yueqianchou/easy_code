@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-steps 步骤条</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-steps 步骤条</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+简单的步骤条
+
+:::设置active属性，接受一个Number，表明步骤的 index，从 0 开始。需要定宽的步骤条时，设置space属性即可，它接受Boolean，单位为px，如果不设置，则为自适应。设置finish-status属性可以改变已经完成的步骤的状态。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-steps :space="100" :active="active" finish-status="success">
+                            <ls-step title="步骤 1"></ls-step>
+                            <ls-step title="步骤 2"></ls-step>
+                            <ls-step title="步骤 3"></ls-step>
+                        </ls-steps>
+                        <ls-button style="margin-top: 12px" @click="next">下一步</ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    active: 0
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                next:function() {
+                    if (this.active++ > 2) this.active = 0;
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+含状态步骤条
+每一步骤显示出该步骤的状态。
+
+:::也可以使用title具名分发，可以用slot的方式来取代属性的设置，在本文档最后的列表中有所有的 slot name 可供参考。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-steps :space="100" :active="1" finish-status="success">
+                            <ls-step title="已完成"></ls-step>
+                            <ls-step title="进行中"></ls-step>
+                            <ls-step title="步骤 3"></ls-step>
+                        </ls-steps>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+有描述的步骤条
+每个步骤有其对应的步骤状态描述
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-steps :space="200" :active="1">
+                            <ls-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></ls-step>
+                            <ls-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></ls-step>
+                            <ls-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></ls-step>
+                        </ls-steps>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带图标的步骤条
+步骤条内可以启用各种自定义的图标。
+
+:::通过icon属性来设置图标，图标的类型可以参考 Icon 组件的文档，除此以外，还能通过具名slot来使用自定义的图标。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-steps :space="100" :active="1">
+                            <ls-step title="步骤 1" icon="edit1"></ls-step>
+                            <ls-step title="步骤 2" icon="upload2"></ls-step>
+                            <ls-step title="步骤 3" icon="img"></ls-step>
+                        </ls-steps>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+竖式步骤条
+只需要在ls-steps元素中设置direction属性为vertical即可。
+
+:::通过icon属性来设置图标，图标的类型可以参考 Icon 组件的文档，除此以外，还能通过具名slot来使用自定义的图标。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-steps :space="100" direction="vertical" :active="1">
+                            <ls-step title="步骤 1"></ls-step>
+                            <ls-step title="步骤 2"></ls-step>
+                            <ls-step title="步骤 3"></ls-step>
+                        </ls-steps>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Steps 属性
+    参数	说明	类型	可选值	默认值
+    space	每个 step 的间距，不填写将自适应间距。支持百分比。	Number,String	—	—
+    direction	显示方向	string	vertical/horizontal	horizontal
+    active	设置当前激活步骤	number	—	0
+    process-status	设置当前步骤的状态	string	wait/process/finish/error/success	process
+    finish-status	设置结束步骤的状态	string	wait/process/finish/error/success	finish
+    align-center	标题描述居中对齐	boolean	-	false
+    center	组件居中显示	boolean	-	false
+    Step 属性
+    参数	说明	类型	可选值	默认值
+    title	标题	string	—	—
+    description	描述性文字	string	—	—
+    icon	图标 Muse Icon 提供的图标，如果要使用自定义图标可以通过 slot 方式写入	string	—	—
+    status	设置当前步骤的状态，不设置则根据 steps 确定状态	wait/process/finish/error/success	-	-
+    Step Slot
+    名称	说明
+    icon	图标
+    title	标题
+    description	描述性文字
+</div>
+
+</body>
+</html>
+

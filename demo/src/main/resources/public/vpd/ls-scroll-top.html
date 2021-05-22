@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-scroll-top 回到顶部控件</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-scroll-top 回到顶部控件</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+::: scroll-top默认为绿色小锚点，图标为^。内置插槽可以个性化设置该组件。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <p>组件A</p>
+                        <p>组件B</p>
+                        <p>组件C</p>
+                        <p>组件D</p>
+                        <p>组件E</p>
+                        <p>组件F</p>
+                        <p>组件G</p>
+                        <p>组件H</p>
+                        <p>组件I</p>
+                        <p>组件J</p>
+                        <p>组件K</p>
+                        <p>组件L</p>
+                        <p>组件M</p>
+                        <p>组件N</p>
+                        <p>组件O</p>
+                        <p>组件P</p>
+                        <p>组件Q</p>
+                        <p>当页面纵向排布出现垂直滚动条时,scroll-top组件出现在页面的右下角</p>
+                        <h4>个性化写法示例:</h4>
+                        <p>&lt; ls-scroll-top &gt; &lt; img src='' /&gt; &lt; /ls-scroll-top &gt;</p>
+                        <p>
+                            这时该组件绿色的小圆圈被替换成了该src下的图片，也就是说在这个标签中你可以个性化的插入各种标签满足不同的需求。需要注意的是:<b>个性化配置该组件，可能需要你写一些样式以实现完美的展示效果。</b>
+                        </p>
+                        <div>
+                            <ls-scroll-top></ls-scroll-top>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    text	显示的内容	string	—	^
+    speed	回滚速度	string	fast,slow	fast
+    style	css样式	string	—	—
+    visibleHeight	向下滚动到该高度时出现该组件	number	—	200
+</div>
+
+</body>
+</html>
+

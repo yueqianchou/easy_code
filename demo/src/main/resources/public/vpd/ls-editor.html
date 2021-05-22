@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-editor 富文本编辑器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-editor 富文本编辑器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+富文本编辑器
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+:::
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-editor ref="editor" :config="config" uploadurl="/upload" @change="onChange" :linkcheck="linkcheck" @linkimg="onLinkImg" @focus="onfocus" @blur="onblur"></ls-editor>
+                        <button @click="getc">获取</button>
+                        <button @click="setc">设置</button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    config: {
+                        menus: ['head']
+                    }
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                getc: function(){
+                    var da = this.$refs.editor.getContent();
+                },
+                setc: function(){
+                    this.$refs.editor.setContent("<p>富文本编辑器中的内容</p>");
+                },
+                onChange: function(oc, nc) {
+                    this
+                },
+                linkcheck: function(text, link) {
+                    return true;
+                },
+                onLinkImg: function(url) {
+                    console.log('linkImg: ' + url)
+                },
+                onfocus: function() {
+                    console.log('focus')
+                },
+                onblur: function() {
+                    console.log('blur')
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Editor 属性
+    参数	说明	类型	可选值	默认值
+    config	配置信息（详情查看config属性）	boolean	—	true
+    linkcheck	链接检测	boolean	—	true
+    方法
+    方法名称	说明	参数
+    setContent	设置编辑区域内容	string
+    getContent	获取编辑区域内的html内容	—
+    getText	获取编辑区域内的文本内容	—
+    config 属性
+    参数	说明	类型	可选值	默认值
+    menus	详情查看菜单配置	array	—	—
+    z-index	编辑区域的z-index默认为10000，可自定义修改	Number	—	10000
+    Eidtor 事件
+    事件	说明	回调参数
+    focus	获点焦点	—
+    blur	失去焦点	—
+    linkImg	点击图片连接	url
+    change	内容改变后变化之后，回调函数	(oldContent, html)
+    菜单配置config.menus
+    [
+    'head',  // 标题
+    'bold',  // 粗体
+    'fontSize',  // 字号
+    'fontName',  // 字体
+    'italic',  // 斜体
+    'underline',  // 下划线
+    'strikeThrough',  // 删除线
+    'foreColor',  // 文字颜色
+    'backColor',  // 背景颜色
+    'link',  // 插入链接
+    'list',  // 列表
+    'justify',  // 对齐方式
+    'quote',  // 引用
+    'emoticon',  // 表情
+    'image',  // 插入图片
+    'table',  // 表格
+    'video',  // 插入视频
+    'code',  // 插入代码
+    'undo',  // 撤销
+    'redo'  // 重复
+    ]
+</div>
+
+</body>
+</html>
+

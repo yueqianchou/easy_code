@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-color-picker 颜色选择器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-color-picker 颜色选择器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+用于颜色选择，支持多种格式
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+:::使用 v-model 与 Vue 实例中的一个变量进行双向绑定，绑定的变量需要是字符串类型。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div v-cloak="">
+                        <div class="block">
+                            <span class="demonstration">有默认值</span>
+                            <ls-color-picker v-model="color1"></ls-color-picker>
+                        </div>
+                        <div class="block">
+                            <span class="demonstration">无默认值</span>
+                            <ls-color-picker v-model="color2"></ls-color-picker>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    color1: '#409EFF',
+                    color2: null
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    show-alpha	是否支持透明度选择	boolean	—	false
+    color-format	写入 v-model 的颜色的格式	string	hsl / hsv / hex / rgb	hex（show-alpha 为 false）/ rgb（show-alpha 为 true）
+    事件
+    事件名称	说明	回调参数
+    change	当绑定值变化时触发	当前值
+    active-change	面板中当前显示的颜色发生改变时触发	当前显示的颜色值
+</div>
+
+
+
+
+</body>
+</html>
+

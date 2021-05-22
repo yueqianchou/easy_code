@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-dialog 对话框</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-dialog 对话框</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+在保留当前页面状态的情况下，告知用户并承载相关操作
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+Dialog 弹出一个对话框，适合需要定制性更大的场景。
+
+:::需要设置visible属性，它接收Boolean，当为true时显示 Dialog。Dialog 分为两个部分：body和footer，footer需要具名为footer的slot。title属性用于定义标题，它是可选的，默认值为空。最后，本例还展示了beforeClose的用法
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div class="block">
+                        <h2>基本用法</h2>
+                        <p>Dialog 弹出一个对话框，适合需要定制性更大的场景。</p>
+                        <ls-button type="text" @click="dialogVisible = true">点击打开 Dialog</ls-button>
+
+                        <ls-dialog title="提示" v-model="dialogVisible" :modal="false" size="tiny" :before-close="handleClose" :modal-append-to-body="false">
+                            <span>这是一段信息</span>
+                            <span slot="footer" class="dialog-footer">
+         <ls-button @click="dialogVisible = false">取 消</ls-button>
+         <ls-button type="primary" @click="dialogVisible = false">确 定</ls-button>
+       </span>
+                        </ls-dialog>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    dialogVisible: false
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleClose: function (done) {
+                    this.$confirm('确认关闭？')
+                        .then(_ => {
+                        done();
+                })
+                .catch(_ => {});
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义内容
+:::Dialog 组件的内容可以是任意的，甚至可以是表格或表单，下面是应用了 Table 和 Form 组件的两个样例
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div class="block">
+                        <h2>自定义内容</h2>
+                        <p>Dialog 组件的内容可以是任意的，甚至可以是表格或表单，下面是应用了 Element Table 和 Form 组件的两个样例。</p>
+                        <!-- Table -->
+                        <ls-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</ls-button>
+
+                        <ls-dialog title="收货地址" v-model="dialogTableVisible">
+                            <ls-table :data="gridData">
+                                <ls-table-column property="date" label="日期" width="150"></ls-table-column>
+                                <ls-table-column property="name" label="姓名" width="200"></ls-table-column>
+                                <ls-table-column property="address" label="地址"></ls-table-column>
+                            </ls-table>
+                        </ls-dialog>
+
+                        <!-- Form -->
+                        <ls-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</ls-button>
+
+                        <ls-dialog title="收货地址" v-model="dialogFormVisible">
+                            <ls-form :model="form">
+                                <ls-form-item label="活动名称" :label-width="formLabelWidth">
+                                    <ls-input v-model="form.name" auto-complete="off"></ls-input>
+                                </ls-form-item>
+                                <ls-form-item label="活动区域" :label-width="formLabelWidth">
+                                    <ls-select v-model="form.region" placeholder="请选择活动区域">
+                                        <ls-option label="区域一" value="shanghai"></ls-option>
+                                        <ls-option label="区域二" value="beijing"></ls-option>
+                                    </ls-select>
+                                </ls-form-item>
+                            </ls-form>
+                            <div slot="footer" class="dialog-footer">
+                                <ls-button @click="dialogFormVisible = false">取 消</ls-button>
+                                <ls-button type="primary" @click="dialogFormVisible = false">确 定</ls-button>
+                            </div>
+                        </ls-dialog>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    gridData: [{
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }],
+                    dialogTableVisible: false,
+                    dialogFormVisible: false,
+                    form: {
+                        name: '',
+                        region: '',
+                        date1: '',
+                        date2: '',
+                        delivery: false,
+                        type: [],
+                        resource: '',
+                        desc: ''
+                    },
+                    formLabelWidth: '120px'
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+
+
+
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    visible	是否显示 Dialog，支持 .sync 修饰符	boolean	—	false
+    title	Dialog 的标题，也可通过具名 slot （见下表）传入	string	—	—
+    draggable	Dialog 是否能拖动	boolean	—	false
+    size	Dialog 的大小	string	tiny/small/large/full	small
+    top	Dialog CSS 中的 top 值（仅在 size 不为 full 时有效）	string	—	15%
+    visible	是否显示 Dialog，支持 .sync 修饰符	boolean	—	false
+    modal	是否需要遮罩层	boolean	—	true
+    modal-append-to-body	遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上	boolean	—	true
+    lock-scroll	是否在 Dialog 出现时将 body 滚动锁定	boolean	—	true
+    custom-class	Dialog 的自定义类名	string	—	—
+    close-on-click-modal	是否可以通过点击 modal 关闭 Dialog	boolean	—	true
+    close-on-press-escape	是否可以通过按下 ESC 关闭 Dialog	boolean	—	true
+    show-close	是否显示关闭按钮	boolean	—	true
+    before-close	关闭前的回调，会暂停 Dialog 的关闭	function(done)，done 用于关闭 Dialog	—	—
+    Slot
+    名称	说明
+    —	Dialog 的内容
+    title	Dialog 标题区的内容
+    footer	Dialog 按钮操作区的内容
+    Dialog 事件
+    事件名称	说明	回调参数
+    close	Dialog 关闭的回调	—
+    open	Dialog 打开的回调	—
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
+

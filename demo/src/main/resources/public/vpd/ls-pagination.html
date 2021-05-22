@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-pagination 分页</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-pagination 分页</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+当数据量过多时，使用分页分解数据
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+:::设置layout，表示需要显示的内容，用逗号分隔，布局元素会依次显示。prev表示上一页，next为下一页，pager表示页码列表，除此以外还提供了jumper和total，size和特殊的布局符号->，->后的元素会靠右显示，jumper表示跳页元素，total表示显示页码总数，size用于设置每页显示的页码数量。
+
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div class="block">
+                        <ls-pagination layout="prev, pager, next" :total="50" @current-change="handleCurrentChange">
+                        </ls-pagination>
+                        <ls-pagination layout="prev, pager, next" :total="1000">
+                        </ls-pagination>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    currentPage1: 5,
+                    currentPage2: 5,
+                    currentPage3: 5,
+                    currentPage4: 4
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleSizeChange: function (val) {
+                    //console.log(`每页 ${val} 条`);
+                },
+                handleCurrentChange: function (val) {
+                    this.currentPage = val;
+                    //console.log(`当前页: ${val}`);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+小型分页
+在空间有限的情况下，可以使用简单的小型分页
+
+:::只需要一个small属性，它接受一个Boolean，默认为false，设为true即可启用。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-pagination small="" layout="prev, pager, next" :total="50">
+                    </ls-pagination>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+附加功能
+根据场景需要，可以添加其他功能模块
+
+:::此例是一个完整的用例，使用了size-change和current-change事件来处理页码大小和当前页变动时候触发的事件。page-sizes接受一个整型数组，数组元素为展示的选择每页显示个数的选项，[100, 200, 300, 400]表示四个选项，每页显示 100 个，200 个，300 个或者 400 个。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <div class="block">
+                            <h3>显示总数</h3>
+                            <ls-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage1" :page-size="100" layout="total, prev, pager, next" :total="1000">
+                            </ls-pagination>
+                        </div>
+                        <br><br>
+
+                        <h3>调整每页显示条数</h3>
+                        <div class="block">
+                            <ls-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage2" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="sizes, prev, pager, next" :total="1000">
+                            </ls-pagination>
+                        </div>
+                        <br><br>
+
+                        <h3>直接前往</h3>
+                        <div class="block">
+                            <ls-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage3" :page-size="100" layout="prev, pager, next, jumper" :total="1000">
+                            </ls-pagination>
+                        </div>
+                        <br><br>
+
+                        <h3>完整功能</h3>
+                        <div class="block">
+                            <ls-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+                            </ls-pagination>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    currentPage1: 5,
+                    currentPage2: 5,
+                    currentPage3: 5,
+                    currentPage4: 4
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleSizeChange: function (val) {
+                    console.log(`每页 ${val} 条`);
+                },
+                handleCurrentChange: function (val) {
+                    console.log(`当前页: ${val}`);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+
+<div>
+    Pagination 属性
+    参数	说明	类型	可选值	默认值
+    small	是否使用小型分页样式	Boolean	—	false
+    page-size	每页显示条目个数	Number	—	10
+    total	总条目数	Number	—	—
+    page-count	总页数，total 和 page-count 设置任意一个就可以达到显示页码的功能；如果要支持 page-sizes 的更改，则需要使用 total 属性	Number	—	—
+    current-page	当前页数，支持 .sync 修饰符	Number	—	1
+    layout	组件布局，子组件名用逗号分隔	String	sizes, prev, pager, next, jumper,->, total, slot	'prev, pager, next, jumper, ->, total'
+    page-sizes	每页显示个数选择器的选项设置	Number[]	—	[10, 20, 30, 40, 50, 100]
+    Pagination 事件
+    事件名称	说明	回调参数
+    size-change	pageSize	改变时会触发 每页条数size
+    current-change	currentPage	改变时会触发 当前页currentPage
+    Pagination Slot
+    事件名称	说明
+    —	自定义内容，需要在 layout 中列出 slot
+</div>
+
+
+</body>
+</html>
+

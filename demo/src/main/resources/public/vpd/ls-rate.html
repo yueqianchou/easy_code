@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-rate 评分</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-rate 评分</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+评分组件
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+:::评分被分为三个等级，可以利用颜色对分数及情感倾向进行分级（默认情况下不区分颜色）。三个等级所对应的颜色用过colors属性设置，而它们对应的两个阈值则通过 low-threshold 和 high-threshold 设定。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-rate v-model="value1"></ls-rate>
+                        <ls-rate v-model="value2" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                        </ls-rate>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    value1: null,
+                    value2: null
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+辅助文字
+用辅助文字直接地表达对应分数
+
+:::为组件设置 show-text 属性会在右侧显示辅助文字。通过设置 texts 可以为每一个分值指定对应的辅助文字。texts 为一个数组，长度应等于最大值 max。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-rate v-model="value3" show-text="">
+                    </ls-rate>
+
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    value3: null
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+其它 icon
+当有多层评价时，可以用不同类型的 icon 区分评分层级
+
+:::设置icon-classes属性可以自定义对应 3 个不同分段的图标。本例还使用void-icon-class指定了未选中时的图标类名。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-rate v-model="value4" :icon-classes="['icon-ms-heart']" void-icon-class="icon-ms-heart1" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                    </ls-rate>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    value4: null
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+只读
+只读的评分用来展示分数，允许出现半星
+
+:::为组件设置 disabled 属性表示组件为只读，支持小数分值。此时若设置 show-text，则会在右侧显示目前的分值。可以提供 text-template 作为显示模板，模板为一个包含了 {value} 的字符串，{value} 会被解析为分值。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-rate v-model="value5" disabled="" show-text="" text-color="#ff9900" text-template="{value}">
+                    </ls-rate>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    value5: 3.7
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Rate 属性
+    参数	说明	类型	可选值	默认值
+    max	最大分值	number	—	5
+    disabled	是否为只读	boolean	—	false
+    allow-half	是否允许半选	boolean	—	false
+    low-threshold	低分和中等分数的界限值，值本身被划分在低分中	number	—	2
+    high-threshold	高分和中等分数的界限值，值本身被划分在高分中	number	—	4
+    colors	icon 的颜色数组，共有 3 个元素，为 3 个分段所对应的颜色	array	—	['#F7BA2A', '#F7BA2A', '#F7BA2A']
+    void-color	未选中 icon 的颜色	string	—	#C6D1DE
+    disabled-void-color	只读时未选中 icon 的颜色	string	—	#EFF2F7
+    icon-classes	icon 的类名数组，共有 3 个元素，为 3 个分段所对应的类名	array	—	[' icon-ms-star', ' icon-ms-star ',' icon-ms-star ']
+    void-icon-class	未选中 icon 的类名	string	—	icon-ms-star1
+    disabled-void-icon-class	只读时未选中 icon 的类名	string	—	icon-ms-star
+    show-text	是否显示辅助文字	boolean	—	false
+    text-color	辅助文字的颜色	string	—	#1F2D3D
+    texts	辅助文字数组	array	—	['极差', '失望', '一般', '满意', '惊喜']
+    text-template	只读时的辅助文字模板	string	—	{value}
+    Rate 事件
+    事件名称	说明	回调参数
+    change	分值改变时触发	改变后的分值
+</div>
+
+</body>
+</html>
+

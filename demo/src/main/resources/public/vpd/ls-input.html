@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-input 输入框</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-input 输入框</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+通过鼠标或键盘输入字符
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input v-model="input" placeholder="请输入内容"></ls-input>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    input: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+禁用状态
+:::通过 disabled 属性指定是否禁用 input 组件
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input placeholder="请输入内容" v-model="input1" disabled="">
+                    </ls-input>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    input1: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+文本域
+用于输入多行文本信息，通过将 type 属性的值指定为 textarea。 :::文本域高度可通过 rows 属性控制
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea"></ls-input>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    textarea: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可自适应文本高度的文本域
+通过设置 autosize 属性可以使得文本域的高度能够根据文本内容自动进行调整，并且 autosize 还可以设定为一个对象，指定最小行数和最大行数。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-input type="textarea" autosize="" placeholder="请输入内容" v-model="textarea2">
+                        </ls-input>
+                        <div style="margin: 20px 0"></div>
+                        <ls-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="textarea3">
+                        </ls-input>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    textarea2: '',
+                    textarea3: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+复合型输入框
+可前置或后置元素，一般为标签或按钮 :::可通过 slot 来指定在 input 中前置或者后置内容。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <div>
+                            <ls-input placeholder="请输入内容" v-model="input3">
+                                <template slot="prepend">Http://</template>
+                            </ls-input>
+                        </div>
+                        <div style="margin-top: 15px">
+                            <ls-input placeholder="请输入内容" v-model="input4">
+                                <template slot="append">.com</template>
+                            </ls-input>
+                        </div>
+                        <div style="margin-top: 15px">
+                            <ls-input placeholder="请输入内容" v-model="input5">
+                                <ls-select v-model="select" slot="prepend" placeholder="请选择">
+                                    <ls-option label="餐厅名" value="1"></ls-option>
+                                    <ls-option label="订单号" value="2"></ls-option>
+                                    <ls-option label="用户电话" value="3"></ls-option>
+                                </ls-select>
+                                <ls-button slot="append" icon="search"></ls-button>
+                            </ls-input>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+                    input3: '',
+                    input4: '',
+                    input5: '',
+                    select: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app6" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+尺寸
+:::可通过 size 属性指定输入框的尺寸，除了默认的大小外，还提供了 large、small 和 mini 三种尺寸。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-input size="large" placeholder="请输入内容" v-model="input6">
+                        </ls-input>
+                        <ls-input placeholder="请输入内容" v-model="input7">
+                        </ls-input>
+                        <ls-input size="small" placeholder="请输入内容" v-model="input8">
+                        </ls-input>
+                        <ls-input size="mini" placeholder="请输入内容" v-model="input9">
+                        </ls-input>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app6',
+            data: function () {
+                return {
+                    input6: '',
+                    input7: '',
+                    input8: '',
+                    input9: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app7" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带icon的输入框
+带有图标标记输入类型 :::可以通过 prefix-icon 和 suffix-icon 属性在 input 组件首部和尾部增加显示图标，也可以通过 slot 来放置图标。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-input v-model="input" placeholder="请输入内容" prefix-icon="icon-ms-search"></ls-input>
+                        <ls-input v-model="input" placeholder="请输入内容" suffix-icon="icon-ms-search"></ls-input>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app7',
+            data: function () {
+                return {
+                    input: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app8" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+可清空
+:::使用clearable属性即可得到一个可清空的输入框
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-input v-model="input" placeholder="请输入内容" prefix-icon="icon-ms-search" :clearable="true"></ls-input>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app8',
+            data: function () {
+                return {
+                    input: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Input 属性
+    参数	说明	类型	可选值	默认值
+    type	类型	string	text/textarea	text
+    value	绑定值	string, number	—	—
+    maxlength	最大输入长度	number	—	—
+    minlength	最小输入长度	number	—	—
+    placeholder	输入框占位文本	string	—	—
+    disabled	禁用	boolean	—	false
+    size	输入框尺寸，只在 type!="textarea"时有效	string	large, small, mini	—
+    rows	输入框行数，只对 type="textarea"有效	number	—	2
+    autosize	自适应内容高度，只对 type="textarea" 有效，可传入对象，如，{ minRows: 2, maxRows: 6 }	boolean/object	—	false
+    auto-complete	原生属性，自动补全	string	on, off	off
+    name	原生属性	string	—	—
+    readonly	原生属性，是否只读	boolean	—	false
+    max	原生属性，设置最大值	—	—	—
+    min	原生属性，设置最小值	—	—	—
+    step	原生属性，设置输入字段的合法数字间隔	—	—	—
+    resize	控制是否能被用户缩放	string	none, both, horizontal, vertical	—
+    autofocus	原生属性，自动获取焦点	boolean	true, false	false
+    form	原生属性	string	—	—
+    prefix-icon	输入框头部图标	string	—	—
+    suffix-icon	输入框尾部图标	string	—	—
+    clearable	是否可以清空选项	boolean	—	—
+    Input 事件
+    事件名称	说明	回调参数
+    click	点击 Input 内的图标时触发	(event: Event)
+    blur	在 Input 失去焦点时触发	(event: Event)
+    focus	在 Input 获得焦点时触发	(event: Event)
+    change	在 Input 值改变时触发	(value: string/number)
+</div>
+
+</body>
+</html>
+

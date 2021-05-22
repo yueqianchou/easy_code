@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-progress 进度条</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-progress 进度条</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+用于展示操作进度，告知用户当前状态和预期。
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+线形进度条 — 百分比外显
+:::Progress 组件设置percentage属性即可，表示进度条对应的百分比，必填，必须在 0-100。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-progress :percentage="0"></ls-progress>
+                        <ls-progress :percentage="70"></ls-progress>
+                        <ls-progress :percentage="100" status="success"></ls-progress>
+                        <ls-progress :percentage="50" status="exception"></ls-progress>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+线形进度条 — 百分比内显
+百分比不占用额外控件，适用于文件上传等场景
+
+:::Progress 组件可通过 stroke-width 属性更改进度条的高度，并可通过 text-inside 属性来将进度条描述置于进度条内部
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-progress :text-inside="true" :stroke-width="18" :percentage="0"></ls-progress>
+                        <ls-progress :text-inside="true" :stroke-width="18" :percentage="70"></ls-progress>
+                        <ls-progress :text-inside="true" :stroke-width="18" :percentage="100" status="success"></ls-progress>
+                        <ls-progress :text-inside="true" :stroke-width="18" :percentage="50" status="exception"></ls-progress>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+环形进度条
+:::Progress 组件可通过 type 属性来指定使用环形进度条，在环形进度条中，还可以通过 width 属性来设置其大小。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-progress type="circle" :percentage="0"></ls-progress>
+                        <ls-progress type="circle" :percentage="25"></ls-progress>
+                        <ls-progress type="circle" :percentage="100" status="success"></ls-progress>
+                        <ls-progress type="circle" :percentage="50" status="exception"></ls-progress>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    Progress 属性
+    参数	说明	类型	可选值	默认值
+    percentage	百分比（必填）	number	0-100	0
+    type	进度条类型	string	line/circle	line
+    stroke-width	进度条的宽度，单位 px	number	—	6
+    text-inside	进度条显示文字内置在进度条内（只在 type=line 时可用）	Boolean	—	false
+    status	进度条当前状态	string	success/exception	—
+    width	环形进度条画布宽度（只在 type=circle 时可用）	number	-	126
+    show-text	是否显示进度条文字内容	boolean	—	true
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-menu 导航</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-menu 导航</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+为网站提供导航功能的菜单。
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+顶栏
+适用广泛的基础用法。
+
+:::导航菜单默认为垂直模式，通过mode属性可以使导航菜单变更为水平模式。另外，在菜单中通过submenu组件可以生成二级菜单。Menu 还提供了background-color、text-color和active-text-color，分别用于设置菜单的背景色、菜单的文字颜色和当前激活菜单的文字颜色。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-menu :default-active="activeIndex" class="ms-menu-demo" mode="horizontal" @select="handleSelect">
+                            <ls-menu-item index="1">处理中心</ls-menu-item>
+                            <ls-submenu index="2">
+                                <template slot="title">我的工作台</template>
+                                <ls-menu-item index="2-1">选项1</ls-menu-item>
+                                <ls-menu-item index="2-2">选项2</ls-menu-item>
+                                <ls-menu-item index="2-3">选项3</ls-menu-item>
+                            </ls-submenu>
+                            <ls-menu-item index="3"><a href="https://www.baidu.com" target="_blank">订单管理</a></ls-menu-item>
+                        </ls-menu>
+                        <div class="line"></div>
+                        <ls-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                            <ls-menu-item index="1">处理中心</ls-menu-item>
+                            <ls-submenu index="2">
+                                <template slot="title">我的工作台</template>
+                                <ls-menu-item index="2-1">选项1</ls-menu-item>
+                                <ls-menu-item index="2-2">选项2</ls-menu-item>
+                                <ls-menu-item index="2-3">选项3</ls-menu-item>
+                            </ls-submenu>
+                            <ls-menu-item index="3"><a href="https://www.baidu.com" target="_blank">订单管理</a></ls-menu-item>
+                        </ls-menu>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    activeIndex: '1',
+                    activeIndex2: '1'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleSelect: function (key, keyPath) {
+                    console.log(key, keyPath);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+侧栏
+垂直菜单，可内嵌子菜单
+
+:::通过ls-menu-item-group组件可以实现菜单进行分组，分组名可以通过title属性直接设定，也可以通过具名 slot 来设定。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-row class="tac">
+                        <ls-col :span="12">
+                            <ls-menu default-active="2" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" :default-openeds="[&quot;1&quot;]">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>导航一</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <template slot="title">分组一</template>
+                                        <ls-menu-item index="1-1">选项1</ls-menu-item>
+                                        <ls-menu-item index="1-2">选项2</ls-menu-item>
+                                    </ls-menu-item-group>
+                                    <ls-menu-item-group title="分组2">
+                                        <ls-menu-item index="1-3">选项3</ls-menu-item>
+                                    </ls-menu-item-group>
+                                    <ls-submenu index="1-4">
+                                        <template slot="title">选项4</template>
+                                        <ls-menu-item index="1-4-1">选项1</ls-menu-item>
+                                    </ls-submenu>
+                                </ls-submenu>
+                                <ls-menu-item index="2">
+                                    <i class="ms-iconfont icon-ms-classify"></i>
+                                    <span slot="title">导航二</span>
+                                </ls-menu-item>
+                                <ls-menu-item index="3">
+                                    <i class="ms-iconfont icon-ms-system"></i>
+                                    <span slot="title">导航三</span>
+                                </ls-menu-item>
+                            </ls-menu>
+                        </ls-col>
+                        <ls-col :span="12">
+                            <ls-menu default-active="2" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                                <ls-submenu index="1">
+                                    <template slot="title">
+                                        <i class="ms-iconfont icon-ms-location"></i>
+                                        <span>导航一</span>
+                                    </template>
+                                    <ls-menu-item-group>
+                                        <template slot="title">分组一</template>
+                                        <ls-menu-item index="1-1">选项1</ls-menu-item>
+                                        <ls-menu-item index="1-2">选项2</ls-menu-item>
+                                    </ls-menu-item-group>
+                                    <ls-menu-item-group title="分组2">
+                                        <ls-menu-item index="1-3">选项3</ls-menu-item>
+                                    </ls-menu-item-group>
+                                    <ls-submenu index="1-4">
+                                        <template slot="title">选项4</template>
+                                        <ls-menu-item index="1-4-1">选项1</ls-menu-item>
+                                    </ls-submenu>
+                                </ls-submenu>
+                                <ls-menu-item index="2">
+                                    <i class="ms-iconfont icon-ms-classify"></i>
+                                    <span slot="title">导航二</span>
+                                </ls-menu-item>
+                                <ls-menu-item index="3">
+                                    <i class="ms-iconfont icon-ms-system"></i>
+                                    <span slot="title">导航三</span>
+                                </ls-menu-item>
+                            </ls-menu>
+                        </ls-col>
+                    </ls-row>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleOpen: function (key, keyPath) {
+                    console.log(key, keyPath);
+                },
+                handleClose: function (key, keyPath) {
+                    console.log(key, keyPath);
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+折叠
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+                            <ls-radio-button :label="false">展开</ls-radio-button>
+                            <ls-radio-button :label="true">收起</ls-radio-button>
+                        </ls-radio-group>
+                        <ls-menu default-active="1-4-1" class="ms-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                            <ls-submenu index="1">
+                                <template slot="title">
+                                    <i class="ms-iconfont icon-ms-location"></i>
+                                    <span slot="title">导航一</span>
+                                </template>
+                                <ls-menu-item-group>
+                                    <span slot="title">分组一</span>
+                                    <ls-menu-item index="1-1">选项1</ls-menu-item>
+                                    <ls-menu-item index="1-2">选项2</ls-menu-item>
+                                </ls-menu-item-group>
+                                <ls-menu-item-group title="分组2">
+                                    <ls-menu-item index="1-3">选项3</ls-menu-item>
+                                </ls-menu-item-group>
+                                <ls-submenu index="1-4">
+                                    <span slot="title">选项4</span>
+                                    <ls-menu-item index="1-4-1">选项1</ls-menu-item>
+                                </ls-submenu>
+                            </ls-submenu>
+                            <ls-menu-item index="2">
+                                <i class="ms-iconfont icon-ms-classify"></i>
+                                <span slot="title">导航二</span>
+                            </ls-menu-item>
+                            <ls-menu-item index="3">
+                                <i class="ms-iconfont icon-ms-system"></i>
+                                <span slot="title">导航三</span>
+                            </ls-menu-item>
+                        </ls-menu>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    isCollapse: true
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleOpen: function (key, keyPath) {
+                    console.log(key, keyPath);
+                },
+                handleClose: function (key, keyPath) {
+                    console.log(key, keyPath);
+                }
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Menu 属性
+    参数	说明	类型	可选值	默认值
+    mode	模式	string	horizontal,vertical	vertical
+    collapse	是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）	boolean	—	false
+    background-color	菜单的背景色（仅支持 hex 格式）	string	—	#ffffff
+    text-color	菜单的文字颜色（仅支持 hex 格式）	string	—	#2d2f33
+    active-text-color	当前激活菜单的文字颜色（仅支持 hex 格式）	string	—	#409EFF
+    default-active	当前激活菜单的 index	string	—	—
+    default-openeds	当前打开的submenu的 key 数组	Array	—	—
+    unique-opened	是否只保持一个子菜单的展开	boolean	—	false
+    menu-trigger	子菜单打开的触发方式(只在 mode 为 horizontal 时有效)	string	—	hover
+    router	是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转	boolean	—	false
+    Menu 方法
+    方法名	说明	参数
+    open	展开指定的	sub-menu index: 需要打开的 sub-menu 的 index
+    close	收起指定的 sub-menu index: 需要收起的 sub-menu 的 index
+    Menu 事件
+    方法名	说明	参数
+    select	菜单激活回调	index: 选中菜单项的 indexPath: 选中菜单项的 index path
+    open	SubMenu 展开的回调	index: 打开的 subMenu 的 index， indexPath: 打开的 subMenu 的 index path
+    close	SubMenu 收起的回调	index: 收起的 subMenu 的 index， indexPath: 收起的 subMenu 的 index path
+    SubMenu 属性
+    参数	说明	类型	可选值	默认值
+    index	唯一标志	string	—	—
+    Menu-Item 属性
+    参数	说明	类型	可选值	默认值
+    index	唯一标志	string	—	—
+    route	Vue Router 路径对象	Object	—	—
+    Menu-Group 属性
+    参数	说明	类型	可选值	默认值
+    title	分组标题	string	—	—
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-switch 开关</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-switch 开关</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+表示两种相互对立的状态间的切换，多用于触发「开/关」。
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+绑定v-model到一个Boolean类型的变量。可以使用on-text属性与off-text属性来设置开关的文字描述，使用on-color属性与off-color属性来设置开关的背景色。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-switch v-model="value1" on-text="" off-text="">
+                        </ls-switch>
+                        <ls-switch v-model="value2" on-color="#13ce66" off-color="#ff4949">
+                        </ls-switch>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    value1: true,
+                    value2: true
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+扩展的 value 类型
+设置on-value和off-value属性，接受Boolean, String或Number类型的值。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tooltip :content="'Switch value: ' + value3" placement="top">
+                        <ls-switch v-model="value3" on-color="#13ce66" off-color="#ff4949" on-value="100" off-value="0">
+                        </ls-switch>
+                    </ls-tooltip>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    value3: '100'
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+禁用状态
+设置disabled属性，接受一个Boolean，设置true即可禁用。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-switch v-model="value4" on-text="" off-text="" disabled="">
+                        </ls-switch>
+                        <ls-switch v-model="value4" disabled="">
+                        </ls-switch>
+                    </div>
+                </template>
+
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    value4: true
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+<div>
+    Switch 属性
+    参数	说明	类型	可选值	默认值
+    disabled	是否禁用	boolean	—	false
+    width	switch 的宽度（像素）	number	—	58（有文字）/ 46（无文字）
+    on-icon-class	switch 打开时所显示图标的类名，设置此项会忽略 on-text	string	—	—
+    off-icon-class	switch 关闭时所显示图标的类名，设置此项会忽略 off-text	string	—	—
+    on-text	switch 打开时的文字	string	—	ON
+    off-text	switch 关闭时的文字	string	—	OFF
+    on-value	switch 打开时的值	boolean / string / number	—	true
+    off-value	switch 关闭时的值	boolean / string / number	—	false
+    on-color	switch 打开时的背景色	string	—	#20A0FF
+    off-color	switch 关闭时的背景色	string	—	#C0CCDA
+    name	switch 对应的 name 属性	string	—	—
+    allow-focus	允许 switch 触发 focus 和 blur 事件	boolean	—	false
+    Switch 事件
+    名称	说明	回调参数
+    change	switch 状态发生变化时的回调函数	新的值
+    blur	switch 失去焦点时触发，仅当 allow-focus 为 true 时生效	Event 事件对象
+    focus	switch 获得焦点时触发，仅当 allow-focus 为 true 时生效	Event 事件对象
+</div>
+
+</body>
+</html>
+

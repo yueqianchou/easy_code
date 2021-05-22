@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-popover 弹出框</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-popover 弹出框</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+Popover 的属性与 Tooltip 很类似，都是基于Vue-popper开发的，因此对于重复属性，请参考 Tooltip 的文档，在此文档中不做详尽解释。
+
+:::设置索引ref，在按钮中，我们注册了自定义指令v-popover，指向索引ID。trigger属性用于设置何时触发 Popover ，提供三种触发方式：hover, click 和 focus。第二种用法通过 slot 指定 reference。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-popover ref="popover1" placement="top-start" title="标题" width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                        </ls-popover>
+                        <ls-popover ref="popover2" placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                        </ls-popover>
+                        <ls-button v-popover:popover1="">hover 激活</ls-button>
+                        <ls-button v-popover:popover2="">click 激活</ls-button>
+                        <ls-popover placement="right" title="标题" width="200" trigger="focus" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                            <ls-button slot="reference">focus 激活</ls-button>
+                        </ls-popover>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+嵌套信息
+可以在 Popover 中嵌套多种类型信息，以下为嵌套表格的例子。
+
+:::利用分发取代content属性
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-popover ref="popover4" placement="right" width="800" trigger="click">
+                            <ls-table :data="gridData">
+                                <ls-table-column prop="name" label="姓名" width="180"></ls-table-column>
+                                <ls-table-column prop="team" label="球队" width="180"></ls-table-column>
+                                <ls-table-column prop="off-pitch" label="决胜球种"></ls-table-column>
+                                <ls-table-column prop="pitch-avg" label="投球均速"></ls-table-column>
+                            </ls-table>
+                        </ls-popover>
+                        <ls-button v-popover:popover4="">click 激活</ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    gridData: [{
+                        team: '底特律老虎',
+                        name: 'Justin Verlander',
+                        'off-pitch': '曲球',
+                        'pitch-avg': 94.6,
+                        tag: '先发'
+                    }, {
+                        team: '纽约扬基',
+                        name: '田中将大',
+                        'off-pitch': '指叉球',
+                        'pitch-avg': 91.8,
+                        tag: '先发'
+                    }, {
+                        team: '波士顿红袜',
+                        name: 'Chris Sale',
+                        'off-pitch': '滑球',
+                        'pitch-avg': 95.1,
+                        tag: '先发'
+                    }, {
+                        team: '德州游骑兵',
+                        name: 'Cole Hamels',
+                        'off-pitch': '圈指变速球',
+                        'pitch-avg': 92.7,
+                        tag: '先发'
+                    },
+                        {
+                            team: '克利夫兰印第安人',
+                            name: 'Andrew Miller',
+                            'off-pitch': '滑曲球',
+                            'pitch-avg': 95.9,
+                            tag: '后援'
+                        }]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    Popover 属性
+    参数	说明	类型	可选值	默认值
+    trigger	触发方式	String	click/focus/hover/manual	click
+    title	标题	String	—	—
+    content	显示的内容，也可以通过 slot 传入 DOM	String	—	—
+    width	宽度	String, Number	—	最小宽度 150px
+    placement	出现位置	String	top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end	bottom
+    disabled	Popover 是否可用	Boolean	—	false
+    value(v-model)	状态是否可见	Boolean	—	false
+    offset	出现位置的偏移量	Number	—	0
+    transition	定义渐变动画	String	—	fade-in-linear
+    visible-arrow	是否显示 Tooltip 箭头，更多参数可见Vue-popper	Boolean	—	true
+    popper-options	popper.js 的参数	Object	参考 popper.js 文档	{ boundariesElement: 'body', gpuAcceleration: false }
+    popper-class	为 popper 添加类名	String	—	—
+    open-delay	触发方式为 hover 时的显示延迟，单位为毫秒	Number	—	—
+    Slot
+    参数	说明
+    —	Popover 内嵌 HTML 文本
+    reference	触发 Popover 显示的 HTML 元素
+    Pagination 事件
+    | 事件名称 | 说明|回调参数| |---------- |-------------- | |show| 显示时触发 |—| |hide| 隐藏时触发 |—|
+</div>
+
+
+</body>
+</html>
+

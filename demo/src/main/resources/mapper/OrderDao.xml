@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.OrderDao">
+
+    <select id="listPageOrder" resultType="com.example.demo.entity.Order" >
+        select * from `order` o
+        <where>
+            <if test="order_name != null and order_name != ''">
+                and o.order_name = #{order_name}
+            </if>
+            <if test="order_status != null and order_status != ''">
+                and o.order_status= #{order_status}
+            </if>
+            <if test="pay_mode != null and pay_mode != ''">
+                and o.pay_mode= #{pay_mode}
+            </if>
+        </where>
+         limit #{start},#{end}
+    </select>
+
+    <select id="getOrderCount" resultType="int">
+        select count(*) from `order` o
+        <where>
+            <if test="order_name != null and order_name != ''">
+                and o.order_name = #{order_name}
+            </if>
+            <if test="order_status != null and order_status != ''">
+                and o.order_status= #{order_status}
+            </if>
+            <if test="pay_mode != null and pay_mode != ''">
+                and o.pay_mode= #{pay_mode}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateOrder" >
+          update  `order`  o  set o.del_flag=1 where o.order_id= #{order_id}
+    </update>
+
+    <select id="getOrderById" resultType="com.example.demo.entity.Order">
+          select * from `order`  o   where o.order_id= #{order_id}
+    </select>
+
+    <select id="getOrderDetailByOrderId" resultType="com.example.demo.entity.OrderDetail">
+          select * from `order_details` d  where  d.order_id= #{order_id}
+    </select>
+
+    <insert id="addOrder"  parameterType="com.example.demo.entity.Order" useGeneratedKeys="true" keyProperty="order_id">
+        insert into `order`  (order_name, pay_mode,order_time,order_status,remarks,del_flag)
+        values(#{order_name}, #{pay_mode}, #{order_time}, #{order_status}, #{remarks}, #{del_flag})
+    </insert>
+
+
+    <select id="selectMaxId" resultType="int">
+        select max(order_id) from `order`
+    </select>
+
+    <insert id="addOrderDetailList"  useGeneratedKeys="true" keyProperty="order_details_id">
+        insert into `order_details`  (order_id, product_name,piece,image,money,unit_price)
+        values
+        <foreach collection="orderDetails" item="e" separator=",">
+            (#{e.order_id}, #{e.product_name}, #{e.piece},#{e.image}, #{e.money},#{e.unit_price})
+        </foreach>
+    </insert>
+
+
+
+</mapper>

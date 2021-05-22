@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-notification 通知</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-notification 通知</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+悬浮出现在页面右上角，显示全局的通知提醒消息
+
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+适用性广泛的通知栏
+
+:::Notification 组件提供通知功能，muse 注册了this.$notify方法，接收一个options字面量参数，在最简单的情况下，你可以设置title字段和message字段，用于设置通知的标题和正文。默认情况下，经过一段时间后 Notification 组件会自动关闭，但是通过设置duration，可以控制关闭的时间间隔，特别的是，如果设置为0，则不会自动关闭。注意：duration接收一个Number，单位为毫秒，默认为4500
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-button plain="" @click="open">
+                            可自动关闭
+                        </ls-button>
+                        <ls-button plain="" @click="open2">
+                            不会自动关闭
+                        </ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open: function () {
+                    const h = this.$createElement;
+
+                    this.$notify({
+                        title: '标题名称',
+                        message: h('i', { style: 'color: teal'}, '这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案')
+                    });
+                },
+
+                open2: function () {
+                    this.$notify({
+                        title: '提示',
+                        message: '这是一条不会自动关闭的消息',
+                        duration: 0
+                    });
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有倾向性
+带有 icon，常用来显示「成功、警告、消息、错误」类的系统消息
+
+:::Muse 为 Notification 组件准备了四种通知类型：success, warning, info,error。通过type字段来设置，除此以外的值将被忽略。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-button plain="" @click="open3">
+                            成功
+                        </ls-button>
+                        <ls-button plain="" @click="open4">
+                            警告
+                        </ls-button>
+                        <ls-button plain="" @click="open5">
+                            消息
+                        </ls-button>
+                        <ls-button plain="" @click="open6">
+                            错误
+                        </ls-button>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open3: function  () {
+                    this.$notify({
+                        title: '成功',
+                        message: '这是一条成功的提示消息',
+                        type: 'success'
+                    })
+                },
+                open4 : function () {
+                    this.$notify({
+                        title: '警告',
+                        message: '这是一条警告的提示消息',
+                        type: 'warning'
+                    })
+                },
+                open5: function  () {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '这是一条消息的提示消息'
+                    })
+                },
+                open6: function  () {
+                    this.$notify.error({
+                        title: '错误',
+                        message: '这是一条错误的提示消息'
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+带有偏移
+让 Notification 偏移一些位置
+
+:::Notification 提供设置偏移量的功能，通过设置 offset 字段，可以使弹出的消息距屏幕顶部偏移一段距离。注意在同一时刻，所有的 Notification 实例应当具有一个相同的偏移量。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-button plain="" @click="open7">
+                        偏移的消息
+                    </ls-button>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                open7: function() {
+                    this.$notify.success({
+                        title: '成功',
+                        message: '这是一条成功的提示消息',
+                        offset: 100
+                    });
+                }
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    Options
+    参数	说明	类型	可选值	默认值
+    title	标题	string	—	—
+    message	说明文字	string	—	—
+    type	主题样式，如果不在可选值内将被忽略	string	success/warning/info/error	—
+    iconClass	自定义图标的类名。若设置了 type，则 iconClass 会被覆盖	string	—	—
+    customClass	自定义类名	string	—	—
+    duration	显示时间, 毫秒。设为 0 则不会自动关闭	number	—	4500
+    onClose	关闭时的回调函数	function	—	—
+    onClick	点击 Notification 时的回调函数	function	—	—
+    offset	偏移的距离，在同一时刻，所有的 Notification 实例应当具有一个相同的偏移量	number	—	0
+    Notification 方法
+    参数	说明
+    close	关闭当前的 Notification
+</div>
+
+
+
+
+
+</body>
+</html>
+

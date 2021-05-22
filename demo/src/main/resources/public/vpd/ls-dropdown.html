@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-dropdown 下拉菜单</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-dropdown 下拉菜单</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+</div>
+将动作或菜单折叠到下拉菜单中
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+移动到下拉菜单上，展开更多操作
+
+:::通过组件slot来设置下拉触发的元素以及需要通过具名slot为dropdown 来设置下拉菜单。默认情况下，下拉按钮只要hover即可，无需点击也会显示下拉菜单。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-dropdown>
+       <span class="ms-dropdown-link">
+         下拉菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+       </span>
+                        <ls-dropdown-menu slot="dropdown">
+                            <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                            <ls-dropdown-item>狮子头</ls-dropdown-item>
+                            <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                            <ls-dropdown-item disabled="">双皮奶</ls-dropdown-item>
+                            <ls-dropdown-item divided="">蚵仔煎</ls-dropdown-item>
+                        </ls-dropdown-menu>
+                    </ls-dropdown>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+触发对象
+:::设置split-button属性来让触发下拉元素呈现为按钮组，左边是功能按钮，右边是触发下拉菜单的按钮，设置为true即可
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-dropdown>
+                            <ls-button type="primary">
+                                更多菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+                            </ls-button>
+                            <ls-dropdown-menu slot="dropdown">
+                                <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                                <ls-dropdown-item>狮子头</ls-dropdown-item>
+                                <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                                <ls-dropdown-item>双皮奶</ls-dropdown-item>
+                                <ls-dropdown-item>蚵仔煎</ls-dropdown-item>
+                            </ls-dropdown-menu>
+                        </ls-dropdown>
+                        <br><br>
+                        <ls-dropdown split-button="" type="primary" @click="handleClick">
+                            更多菜单
+                            <ls-dropdown-menu slot="dropdown">
+                                <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                                <ls-dropdown-item>狮子头</ls-dropdown-item>
+                                <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                                <ls-dropdown-item>双皮奶</ls-dropdown-item>
+                                <ls-dropdown-item>蚵仔煎</ls-dropdown-item>
+                            </ls-dropdown-menu>
+                        </ls-dropdown>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleClick: function  (event) {
+                    console.log(111)
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+触发方式
+可以配置 click 激活或者 hover 激活 :::在trigger属性设置为click即可
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <p>hover 激活</p>
+                        <div>
+                            <ls-dropdown>
+            <span class="ms-dropdown-link">
+              下拉菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+            </span>
+                                <ls-dropdown-menu slot="dropdown">
+                                    <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                                    <ls-dropdown-item>狮子头</ls-dropdown-item>
+                                    <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                                    <ls-dropdown-item>双皮奶</ls-dropdown-item>
+                                    <ls-dropdown-item>蚵仔煎</ls-dropdown-item>
+                                </ls-dropdown-menu>
+                            </ls-dropdown>
+                        </div>
+                        <p>click 激活</p>
+                        <div>
+                            <ls-dropdown trigger="click">
+            <span class="ms-dropdown-link">
+              下拉菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+            </span>
+                                <ls-dropdown-menu slot="dropdown">
+                                    <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                                    <ls-dropdown-item>狮子头</ls-dropdown-item>
+                                    <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                                    <ls-dropdown-item>双皮奶</ls-dropdown-item>
+                                    <ls-dropdown-item>蚵仔煎</ls-dropdown-item>
+                                </ls-dropdown-menu>
+                            </ls-dropdown>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+菜单隐藏方式
+可以hide-on-click属性来配置 :::下拉菜单默认在点击菜单项后会被隐藏，将hide-on-click属性默认为false可以关闭此功能。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-dropdown :hide-on-click="false">
+      <span class="ms-dropdown-link">
+        下拉菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+      </span>
+                        <ls-dropdown-menu slot="dropdown">
+                            <ls-dropdown-item>黄金糕</ls-dropdown-item>
+                            <ls-dropdown-item>狮子头</ls-dropdown-item>
+                            <ls-dropdown-item>螺蛳粉</ls-dropdown-item>
+                            <ls-dropdown-item disabled="">双皮奶</ls-dropdown-item>
+                            <ls-dropdown-item divided="">蚵仔煎</ls-dropdown-item>
+                        </ls-dropdown-menu>
+                    </ls-dropdown>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app5" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+指令事件
+点击菜单项后会触发事件，用户可以通过相应的菜单项 key 进行不同的操作
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-dropdown @command="handleCommand">
+      <span class="ms-dropdown-link">
+        下拉菜单<i class="ms-icon-caret-bottom ms-icon--right"></i>
+      </span>
+                        <ls-dropdown-menu slot="dropdown">
+                            <ls-dropdown-item command="a">黄金糕</ls-dropdown-item>
+                            <ls-dropdown-item command="b">狮子头</ls-dropdown-item>
+                            <ls-dropdown-item command="c">螺蛳粉</ls-dropdown-item>
+                            <ls-dropdown-item command="d" disabled="">双皮奶</ls-dropdown-item>
+                            <ls-dropdown-item command="e" divided="">蚵仔煎</ls-dropdown-item>
+                        </ls-dropdown-menu>
+                    </ls-dropdown>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app5',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                handleCommand: function  (command) {
+                    console.log('click on item ' + command);
+                }
+            }
+        })
+    </script>
+</div>
+
+<div>
+    Dropdown 属性
+    参数	说明	类型	可选值	默认值
+    type	菜单按钮类型，同 Button 组件(只在split-button为 true 的情况下有效)	string	—	—
+    size	菜单按钮尺寸，同 Button 组件(只在split-button为 true 的情况下有效)	string	—	—
+    split-button	下拉触发元素呈现为按钮组	boolean	—	—
+    menu-align	菜单水平对齐方向	string	start, end	end
+    trigger	触发下拉的行为	string	hover, click	hover
+    hide-on-click	是否在点击菜单项后隐藏菜单	boolean	—	true
+    Dropdown 事件
+    事件名称	说明	回调参数
+    click	split-button 为 true 时，点击左侧按钮的回调	—
+    command	点击菜单项触发的事件回调	dropdown-item 的指令
+    visible-change	下拉框出现/隐藏时触发	出现则为 true，隐藏则为 false
+    Dropdown Item 属性
+    参数	说明	类型	可选值	默认值
+    command	指令	string	—	—
+    disabled	禁用	boolean	—	false
+    divided	显示分割线	boolean	—	false
+</div>
+
+
+
+
+
+</body>
+</html>
+

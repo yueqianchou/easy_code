@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-date-picker 日期选择器</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-date-picker 日期选择器</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+
+用于选择或输入日期
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+以「日」为基本单位，基础的日期选择控件
+:::基本单位由type属性指定。快捷选项需配置picker-options对象中的shortcuts，禁用日期通过 disabledDate 设置，传入函数
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div v-cloak="">
+                        <div class="block">
+                            <p>默认</p>
+                            <ls-date-picker v-model="value1" type="date" placeholder="选择日期" :picker-options="pickerOptions0" :editable="false">
+                            </ls-date-picker>
+                        </div>
+                        <div class="block">
+                            <p>带快捷选项</p>
+                            <ls-date-picker v-model="value2" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1">
+                            </ls-date-picker>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    pickerOptions0: {
+                        disabledDate: function (time) {
+                            return time.getTime() < Date.now() - 8.64e7;
+                        }
+                    },
+                    pickerOptions1: {
+                        shortcuts: [{
+                            text: '今天',
+                            onClick: function (picker) {
+                                picker.$emit('pick', new Date());
+                            }
+                        }, {
+                            text: '昨天',
+                            onClick: function (picker) {
+                                const date = new Date();
+                                date.setTime(date.getTime() - 3600 * 1000 * 24);
+                                picker.$emit('pick', date);
+                            }
+                        }, {
+                            text: '一周前',
+                            onClick: function (picker) {
+                                const date = new Date();
+                                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                                picker.$emit('pick', date);
+                            }
+                        }]
+                    },
+                    value1: '',
+                    value2: '',
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+其他日期单位
+:::通过扩展基础的日期选择，可以选择周、月、年
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div v-cloak="">
+                        <div class="block">
+                            <p>周</p>
+                            <ls-date-picker v-model="value3" type="week" format="yyyy 第 WW 周" placeholder="选择周">
+                            </ls-date-picker>
+                        </div>
+                        <div class="block">
+                            <p>月</p>
+                            <ls-date-picker v-model="value4" type="month" placeholder="选择月">
+                            </ls-date-picker>
+                        </div>
+                        <div class="block">
+                            <p>年</p>
+                            <ls-date-picker v-model="value5" align="right" type="year" placeholder="选择年">
+                            </ls-date-picker>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    value3: '',
+                    value4: '',
+                    value5: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+选择日期范围
+:::通过扩展基础的日期选择，可以选择周、月、年
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div v-cloak="">
+                        <div class="block">
+                            <p>默认</p>
+                            <ls-date-picker v-model="value6" type="daterange" placeholder="选择日期范围">
+                            </ls-date-picker>
+                        </div>
+                        <div class="block">
+                            <p>带快捷选项</p>
+                            <ls-date-picker v-model="value7" type="daterange" align="right" placeholder="选择日期范围" :picker-options="pickerOptions2">
+                            </ls-date-picker>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+                    pickerOptions2: {
+                        shortcuts: [{
+                            text: '最近一周',
+                            onClick: function (picker) {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }, {
+                            text: '最近一个月',
+                            onClick: function (picker) {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }, {
+                            text: '最近三个月',
+                            onClick: function (picker) {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }]
+                    },
+                    value6: '',
+                    value7: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+
+<div>
+    DatePicker 属性
+    参数	说明	类型	可选值	默认值
+    readonly	完全只读	boolean	—	false
+    disabled	禁用	boolean	—	false
+    editable	文本框可输入	boolean	—	true
+    clearable	是否显示清除按钮	boolean	—	true
+    size	输入框尺寸	string	large, small, mini	—
+    placeholder	占位内容	string	—	—
+    type	显示类型	string	year/month/date/week/ datetime/datetimerange/daterange	date
+    format	时间日期格式化	string	年 yyyy，月 MM，日 dd，小时 HH，分 mm，秒 ss	yyyy-MM-dd
+    align	对齐方式	string	left, center, right	left
+    popper-class	DatePicker 下拉框的类名	string	—	—
+    picker-options	当前时间日期选择器特有的选项参考下表	object	—	{}
+    range-separator	选择范围时的分隔符	string	—	' - '
+    default-value	可选，DatePicker打开时默认显示的时间	Date	—	可被new Date()解析
+    value-type	可调整v-model的返回内容,same和输入框内相同.timestamp返回时间戳	String	same/timestamp	same
+    picker-options
+    参数	说明	类型	可选值	默认值
+    shortcuts	设置快捷选项，需要传入 { text, onClick } 对象用法参考 demo 或下表	Object[]	—	—
+    disabledDate	设置禁用状态，参数为当前日期，要求返回 Boolean	Function	—	—
+    firstDayOfWeek	周起始日	Number	1 到 7	7
+    onPick	选中日期后会执行的回调，只有当 daterange 或 datetimerange 才生效	Function({ maxDate, minDate })	—	—
+    shotcuts
+    参数	说明	类型	可选值	默认值
+    text	标题文本	string	—	—
+    onClick	选中后的回调函数，参数是 vm，可通过触发 'pick' 事件设置选择器的值。例如 vm.$emit('pick', new Date())	function	—	—
+    DatePicker 事件
+    事件名称	说明	回调参数
+    change	当 input 的值改变时触发，返回值和文本框一致	格式化后的值
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
+

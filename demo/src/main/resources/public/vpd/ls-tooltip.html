@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-tooltip 文字提示</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-tooltip 文字提示</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+</div>
+常用于展示鼠标 hover 时的提示信息。
+
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基础用法
+在这里我们提供 9 种不同方向的展示方式，可以通过以下完整示例来理解，选择你要的效果。 使用content属性来决定hover时的提示信息。
+由placement属性决定展示效果：placement属性值为：方向-对齐位置；四个方向：top、left、right、bottom；
+三种对齐位置：start, end，默认为空。如placement="left-end"，则提示信息出现在目标元素的左侧，且提示信息的底部与目标元素的底部对齐。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div class="box">
+                        <div class="top">
+                            <ls-tooltip class="item" effect="dark" content="Top Left 提示文字" placement="top-start">
+                                <ls-button>上左</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Top Center 提示文字" placement="top">
+                                <ls-button>上边</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Top Right 提示文字" placement="top-end">
+                                <ls-button>上右</ls-button>
+                            </ls-tooltip>
+                        </div>
+                        <div class="left">
+                            <ls-tooltip class="item" effect="dark" content="Left Top 提示文字" placement="left-start">
+                                <ls-button>左上</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Left Center 提示文字" placement="left">
+                                <ls-button>左边</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Left Bottom 提示文字" placement="left-end">
+                                <ls-button>左下</ls-button>
+                            </ls-tooltip>
+                        </div>
+
+                        <div class="right">
+                            <ls-tooltip class="item" effect="dark" content="Right Top 提示文字" placement="right-start">
+                                <ls-button>右上</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Right Center 提示文字" placement="right">
+                                <ls-button>右边</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Right Bottom 提示文字" placement="right-end">
+                                <ls-button>右下</ls-button>
+                            </ls-tooltip>
+                        </div>
+                        <div class="bottom">
+                            <ls-tooltip class="item" effect="dark" content="Bottom Left 提示文字" placement="bottom-start">
+                                <ls-button>下左</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Bottom Center 提示文字" placement="bottom">
+                                <ls-button>下边</ls-button>
+                            </ls-tooltip>
+                            <ls-tooltip class="item" effect="dark" content="Bottom Right 提示文字" placement="bottom-end">
+                                <ls-button>下右</ls-button>
+                            </ls-tooltip>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    value1: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+主题
+Tooltip 组件提供了两个不同的主题：dark和light。 通过设置'effect'属性来改变主题，默认为'dark'。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <div>
+                        <ls-tooltip content="Top center" placement="top">
+                            <ls-button>Dark</ls-button>
+                        </ls-tooltip>
+                        <ls-tooltip content="Bottom center" placement="bottom" effect="light">
+                            <ls-button>Light</ls-button>
+                        </ls-tooltip>
+                    </div>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app3" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+更多 Content
+若先选择开始时间，则结束时间内备选项的状态会随之改变
+
+::: demo 通过设置show-icon属性来显示 Alert 的 icon，这能更有效地向用户展示你的显示意图。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tooltip placement="top">
+                        <div slot="content">多行信息<br>第二行信息</div>
+                        <ls-button>Top center</ls-button>
+                    </ls-tooltip>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app3',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+</br></br>
+<div id="app4" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+高级扩展
+除了这些基本设置外，还有一些属性可以让使用者更好的定制自己的效果：
+transition 属性可以定制显隐的动画效果，默认为fade-in-linear。 如果需要关闭 tooltip 功能，disabled 属性可以满足这个需求，它接受一个Boolean，设置为true即可。
+
+
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-tooltip :disabled="disabled" content="点击关闭 tooltip 功能" placement="bottom" effect="light">
+                        <ls-button @click="disabled = !disabled">点击{{disabled ? '开启' : '关闭'}} tooltip 功能</ls-button>
+                    </ls-tooltip>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app4',
+            data: function () {
+                return {
+                    disabled: true
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    effect	默认提供的主题	string	dark/light	dark
+    content	显示的内容，也可以通过 slot#content 传入 DOM	string	—	—
+    placement	Tooltip 的出现位置	string	top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end	bottom
+    value(v-model)	状态是否可见	boolean	—	false
+    disabled	Tooltip 是否可用	boolean	—	false
+    offset	出现位置的偏移量	nunber	—	0
+    transition	定义渐变动画	string	—	ls-fade-in-linear
+    visible-arrow	是否显示 Tooltip 箭头，更多参数可见Vue-popper	boolean	—	true
+    open-delay	延迟出现，单位毫秒	number	—	0
+    manual	手动控制模式，设置为 true 后，mouseenter 和 mouseleave 事件将不会生效	boolean	—	false
+    popper-class	为 Tooltip 的 popper 添加类名	string	—	—
+    enterable	鼠标是否可进入到 tooltip 中	boolean	—	true
+    hide-after	Tooltip 出现后自动隐藏延时，单位毫秒，为 0 则不会自动隐藏	number	—	0
+</div>
+
+
+
+</body>
+</html>
+

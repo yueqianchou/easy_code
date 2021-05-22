@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ls-table-tree 树形表格</title>
+    <link rel="stylesheet" href="../css/vmd.min.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vmd.min.js"></script>
+    <script src="../js/lvm.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div class="text item">
+                <span style="line-height: 36px;margin: 0px 40%;">ls-table-tree 树形表格</span>
+                <ls-button style="float: right;" type="primary" icon="round-close" @click="history.go(-1)"></ls-button>
+            </div>
+        </ls-card>
+    </template>
+
+    <script>
+        Lvm.create({
+            rootElement: '#app',
+            data: function () {
+                return {
+
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+
+
+</div>
+
+</br></br>
+<div id="app1" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+基本用法
+::: demo Alert 组件提供四种主题，由type属性指定，默认值为info。
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-table-tree :columns="columns" tree-structure="" :data-source="dataSource">
+                    </ls-table-tree>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app1',
+            data: function () {
+                return {
+                    selection: {},
+                    columns: [
+                        {
+                            text: '姓名',
+                            editType: 'input',
+                            prop: 'name'
+                        },
+                        {
+                            text: '年龄',
+                            editType: 'input',
+                            prop: 'age'
+                        },
+                        {
+                            text: '性别',
+                            editType: 'select',
+                            options: [
+                                {value:''},
+                                {value:'男'},
+                                {value:'女'}
+                            ],
+                            prop: 'sex'
+                        },
+                        {
+                            text: '操作',
+                            prop: 'operate',
+                            slot: true
+                        }
+                    ],
+                    dataSource: [
+                        {
+                            id: 1,
+                            parentId: 0,
+                            name: '测试1',
+                            age: 18,
+                            sex: '男',
+                            editFlag: false,
+                            children: [
+                                {
+                                    id: 2,
+                                    parentId: 1,
+                                    name: '测试2',
+                                    age: 22,
+                                    editFlag: false,
+                                    sex: '男'
+                                }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            parentId: 0,
+                            name: '测试3',
+                            age: 23,
+                            sex: '女',
+                            editFlag: false,
+                            children: [
+                                {
+                                    id: 4,
+                                    parentId: 3,
+                                    name: '测试4',
+                                    age: 22,
+                                    editFlag: false,
+                                    sex: '男'
+                                },
+                                {
+                                    id: 5,
+                                    parentId: 3,
+                                    name: '测试5',
+                                    age: 25,
+                                    editFlag: false,
+                                    sex: '男'
+                                },
+                                {
+                                    id: 6,
+                                    parentId: 3,
+                                    name: '测试6',
+                                    age: 26,
+                                    sex: '女',
+                                    editFlag: false,
+                                    children: [
+                                        {
+                                            id: 7,
+                                            parentId: 6,
+                                            name: '测试7',
+                                            age: 27,
+                                            editFlag: false,
+                                            sex: '男'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 18,
+                            parentId: 0,
+                            name: '测试8',
+                            age: 18,
+                            editFlag: false,
+                            sex: '男'
+                        }
+                    ]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</div>
+
+
+</br></br>
+<div id="app2" v-cloak="">
+    <template>
+        <ls-card class="box-card">
+            <div slot="header" class="clearfix">
+                        <span style="line-height: 36px;">
+自定义列
+使用 render-slot-column 属性生成列，排在columns属性的后面
+                        </span>
+            </div>
+            <div>
+                <template>
+                    <ls-table-tree :columns="columns" tree-structure="" :render-slot-column="ren" :data-source="dataSource">
+                    </ls-table-tree>
+                </template>
+            </div>
+        </ls-card>
+    </template>
+    <script>
+        Lvm.create({
+            rootElement: '#app2',
+            data: function () {
+                return {
+                    selection: {},
+                    columns: [
+                        {
+                            text: '姓名',
+                            editType: 'input',
+                            prop: 'name'
+                        },
+                        {
+                            text: '年龄',
+                            editType: 'input',
+                            prop: 'age'
+                        },
+                        {
+                            text: '性别',
+                            editType: 'select',
+                            options: [
+                                {value:''},
+                                {value:'男'},
+                                {value:'女'}
+                            ],
+                            prop: 'sex'
+                        },
+                        {
+                            text: '操作',
+                            prop: 'operate',
+                            slot: true
+                        }
+                    ],
+                    dataSource: [
+                        {
+                            id: 1,
+                            parentId: 0,
+                            name: '测试1',
+                            age: 18,
+                            sex: '男',
+                            editFlag: false,
+                            children: [
+                                {
+                                    id: 2,
+                                    parentId: 1,
+                                    name: '测试2',
+                                    age: 22,
+                                    editFlag: false,
+                                    sex: '男'
+                                }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            parentId: 0,
+                            name: '测试3',
+                            age: 23,
+                            sex: '女',
+                            editFlag: false,
+                            children: [
+                                {
+                                    id: 4,
+                                    parentId: 3,
+                                    name: '测试4',
+                                    age: 22,
+                                    editFlag: false,
+                                    sex: '男'
+                                },
+                                {
+                                    id: 5,
+                                    parentId: 3,
+                                    name: '测试5',
+                                    age: 25,
+                                    editFlag: false,
+                                    sex: '男'
+                                },
+                                {
+                                    id: 6,
+                                    parentId: 3,
+                                    name: '测试6',
+                                    age: 26,
+                                    sex: '女',
+                                    editFlag: false,
+                                    children: [
+                                        {
+                                            id: 7,
+                                            parentId: 6,
+                                            name: '测试7',
+                                            age: 27,
+                                            editFlag: false,
+                                            sex: '男'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 18,
+                            parentId: 0,
+                            name: '测试8',
+                            age: 18,
+                            editFlag: false,
+                            sex: '男'
+                        }
+                    ]
+                }
+            },
+            mounted: function () {
+                var _this = this;
+
+            },
+            methods: {
+                ren:function(h, { node, data, store }) {
+                    return h(Vue.extend({
+                        template: [
+                            '<div>',
+                            '<ls-button @click="edit(data)">编辑</ls-button>',
+                            '<ls-button @click="remove">删除</ls-button>',
+                            '</div>'
+                        ].join(''),
+                        data: function () {
+                            return {
+                                data: data
+                            }
+                        },
+                        methods: {
+                            edit: function(row) {
+                                row.editFlag = !row.editFlag;
+                            },
+                            remove: function() {
+                                this;
+                            }
+                        }
+                    }));
+                },
+
+
+            }
+        })
+    </script>
+</div>
+
+
+<div>
+    属性
+    参数	说明	类型	可选值	默认值
+    multiselect	是否多选	boolean	—	false
+    render-slot-column	自定义列	string	—	—
+    closable	是否可关闭	boolean	—	true
+    close-text	关闭按钮自定义文本	string	—	—
+    show-icon	是否显示图标	boolean	—	false
+    事件
+    事件名称	说明	回调参数
+    close	关闭alert时触发的事件	—
+</div>
+
+
+
+
+
+</body>
+</html>
+
